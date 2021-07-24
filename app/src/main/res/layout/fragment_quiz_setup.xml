@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/quiz_setup_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/secondary"
+    android:theme="@style/Theme.MyCheesecakes"
+    tools:context=".ui.quiz.QuizSetupFragment">
+
+
+    <TextView
+        android:id="@+id/select_category_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:text="@string/select_a_category"
+        android:textColor="@color/white"
+        android:textSize="@dimen/large_string_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/chocolate_category_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:text="@string/chocolate"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/chocolate_button"
+        app:layout_constraintEnd_toEndOf="@id/chocolate_button"
+        app:layout_constraintStart_toStartOf="@id/chocolate_button" />
+
+    <ImageButton
+        android:id="@+id/chocolate_button"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="42dp"
+        android:background="@color/velvet"
+        android:contentDescription="@string/chocolate_cake"
+        android:padding="2dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/herysheys_cheesecake"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_category_text" />
+
+    <TextView
+        android:id="@+id/fruit_category_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:text="@string/fruit"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/fruit_button"
+        app:layout_constraintEnd_toEndOf="@id/fruit_button"
+        app:layout_constraintStart_toStartOf="@id/fruit_button" />
+
+    <ImageButton
+        android:id="@+id/fruit_button"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="36dp"
+        android:background="@color/velvet"
+        android:contentDescription="@string/chocolate_cake"
+        android:padding="2dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/lemon_raspberry_cheesecake"
+        app:layout_constraintEnd_toEndOf="@+id/chocolate_button"
+        app:layout_constraintStart_toStartOf="@+id/chocolate_button"
+        app:layout_constraintTop_toBottomOf="@+id/chocolate_button" />
+
+    <TextView
+        android:id="@+id/other_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:text="@string/other"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/other_button"
+        app:layout_constraintEnd_toEndOf="@id/other_button"
+        app:layout_constraintStart_toStartOf="@id/other_button" />
+
+    <ImageButton
+        android:id="@+id/other_button"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="36dp"
+        android:background="@color/velvet"
+        android:contentDescription="@string/chocolate_cake"
+        android:padding="2dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/tiramisu_cheesecake"
+        app:layout_constraintEnd_toEndOf="@+id/fruit_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/fruit_button"
+        app:layout_constraintTop_toBottomOf="@+id/fruit_button" />
+
+    <Button
+        android:id="@+id/presentation_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/default_margin"
+        android:text="@string/presentation_practice"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/other_button"
+        app:layout_constraintStart_toStartOf="@+id/other_button" />
+</androidx.constraintlayout.widget.ConstraintLayout>
