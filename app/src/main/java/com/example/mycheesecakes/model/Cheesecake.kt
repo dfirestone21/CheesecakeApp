@@ -22,16 +22,22 @@ val allCheesecakeList: List<Cheesecake> = listOf(
                 "Whip", setOf(CHOCOLATE, CAKE), "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_30thChocolateAnnivCheesecake.jpg"),
         Cheesecake("Adam’s Peanut Butter Cup Fudge Ripple", "Original with Reese's and Butterfingers",
                 "Chocolate", "Peanuts", "One", "Peanut Butter cream cheese rosette, Reece's, Butterfinger", "Whip",
-                setOf(CANDY, NUTS, KIDS_FAVE), "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_AdamsPeanutButterCupFudgeRipple.jpg"),
+                setOf(CANDY, NUTS,
+                        KIDS_FAVE
+                ), "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_AdamsPeanutButterCupFudgeRipple.jpg"),
         Cheesecake("Caramel Apple Cheesecake", "Original cheesecake loaded with caramel apples",
-                "Graham cracker", "None", "Two", "Caramel", "streusel sprinkled on whip", setOf(KIDS_FAVE, FRUIT),
+                "Graham cracker", "None", "Two", "Caramel", "streusel sprinkled on whip", setOf(
+                        KIDS_FAVE, FRUIT
+                ),
                 "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_CaramelAppleCheesecake.jpg"),
         Cheesecake("Caramel Pecan Turtle", "Caramel", "Pecan brownie", "Pecans", "One",
-                "Caramel Turtle Pecans and Chocolate Ganache", "Whip", setOf(CHOCOLATE, NUTS),
+                "Caramel Turtle Pecans and Chocolate Ganache", "Whip", setOf(CHOCOLATE,NUTS
+                ),
                 "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_CaramelPecanTurtleCheesecake.jpg"),
         Cheesecake("Celebration Cake Cheesecake", "Layers of Vanilla Cake, Cheesecake, Strawberry, Chocolate and Vanilla Mousse", "Vanilla Cake",
                 "None", "One, front", "Cream Cheese Frosting", "Whip and confetti sprinkled evenly over the entire plate and dessert",
-                setOf(KIDS_FAVE, CHOCOLATE, MOUSSE), "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_CelebrationCheesecake.jpg"),
+                setOf(KIDS_FAVE, CHOCOLATE, MOUSSE
+                ), "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_CelebrationCheesecake.jpg"),
         Cheesecake("Chocolate Caramelicious Cheesecake Made with Snickers", "Original cheesecake swirled with Snickers", "Brownie", "Peanuts", "Two",
                 "Snickers", "Whip, caramel and peanuts", setOf(CHOCOLATE, NUTS, KIDS_FAVE, CARAMEL),
                 "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_ChocolateCarameliciousCheesecake.jpg"),
@@ -110,7 +116,6 @@ val allCheesecakeList: List<Cheesecake> = listOf(
 
 )
 
-
 enum class Category(val nameString: String) {
         CHOCOLATE("Chocolate Lover"),
         FRUIT("Fruit"),
@@ -129,3 +134,4 @@ enum class Category(val nameString: String) {
         PASTRY("Pastry"),
         VANILLA("Vanilla")
 }
+

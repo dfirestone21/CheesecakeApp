@@ -36,5 +36,4 @@ data class Question(
             else -> "Error"
         }
     }
-
 }
