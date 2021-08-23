@@ -16,4 +16,6 @@
     <string name="picture_of_cheesecake">picture of cheesecake</string>
     <string name="_30">30</string>
     <string name="presentation_practice">presentation practice</string>
+    <string name="desserttype">DessertType</string>
+    <string name="dessert_category_image">Dessert category image</string>
 </resources>

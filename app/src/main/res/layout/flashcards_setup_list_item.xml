@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/flashcards_setup_listitem_constraintlayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/secondary"
+    android:theme="@style/Theme.MyCheesecakes">
+
+    <ImageView
+        android:id="@+id/flashcards_setup_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/dessert_category_image"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/fresh_strawberry_cheesecake" />
+
+    <TextView
+        android:id="@+id/flashcard_setup_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/main"
+        android:text="@string/desserttype"
+        android:textColor="@color/white"
+        android:textSize="@dimen/large_string_size"
+        app:layout_constraintStart_toStartOf="@id/flashcards_setup_imageview"
+        app:layout_constraintTop_toBottomOf="@id/flashcards_setup_imageview"
+        app:layout_constraintEnd_toEndOf="@id/flashcards_setup_imageview"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
