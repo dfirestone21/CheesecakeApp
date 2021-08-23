@@ -1,6 +1,6 @@
 package com.example.mycheesecakes.model.desserts
 
-class ExtraDessert(
+class Dessert(
         name: String,
         imageURL: String,
         val dishes: Set<String>,
@@ -9,6 +9,6 @@ class ExtraDessert(
         val fudge: String,
         val whippedCream: String,
         val toppings: String
-) : Dessert(name, imageURL){
+) : MenuItem(name, imageURL){
 
 }

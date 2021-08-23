@@ -1,6 +1,7 @@
 package com.example.mycheesecakes.model
 
 import com.example.mycheesecakes.model.Category.*
+import com.example.mycheesecakes.model.desserts.MenuItem
 
 class Cheesecake(
         name: String,
@@ -12,7 +13,7 @@ class Cheesecake(
         val presentation: String,
         val categories: Set<Category>,
         imageUrl: String
-)  : Dessert(name, imageUrl){
+)  : MenuItem(name, imageUrl){
 
 }
 
