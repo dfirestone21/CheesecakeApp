@@ -2,8 +2,8 @@ package com.example.mycheesecakes.model
 
 import com.example.mycheesecakes.model.Category.*
 
-data class Cheesecake(
-        val name: String,
+class Cheesecake(
+        name: String,
         val cheesecake: String,
         val crust: String,
         val nuts: String,
@@ -11,8 +11,8 @@ data class Cheesecake(
         val topping: String,
         val presentation: String,
         val categories: Set<Category>,
-        val imageUrl: String,
-) {
+        imageUrl: String
+)  : Dessert(name, imageUrl){
 
 }
 
