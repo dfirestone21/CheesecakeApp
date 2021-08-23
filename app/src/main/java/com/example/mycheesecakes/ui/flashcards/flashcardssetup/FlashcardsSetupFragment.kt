@@ -1,4 +1,4 @@
-package com.example.mycheesecakes.ui.flashcards
+package com.example.mycheesecakes.ui.flashcards.flashcardssetup
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

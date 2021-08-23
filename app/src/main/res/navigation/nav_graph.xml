@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/quizSetupFragment"
-        android:name="com.example.mycheesecakes.ui.quiz.QuizSetupFragment"
+        android:name="com.example.mycheesecakes.ui.quiz.quizsetup.QuizSetupFragment"
         android:label="fragment_quiz_setup"
         tools:layout="@layout/fragment_quiz_setup" >
         <action

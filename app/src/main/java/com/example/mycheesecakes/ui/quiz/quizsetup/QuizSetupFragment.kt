@@ -1,4 +1,4 @@
-package com.example.mycheesecakes.ui.quiz
+package com.example.mycheesecakes.ui.quiz.quizsetup
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
