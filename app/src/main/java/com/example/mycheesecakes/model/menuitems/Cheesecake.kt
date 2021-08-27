@@ -2,6 +2,7 @@ package com.example.mycheesecakes.model
 
 import com.example.mycheesecakes.model.Category.*
 import com.example.mycheesecakes.model.desserts.MenuItem
+import kotlin.collections.HashMap
 
 class Cheesecake(
         name: String,
@@ -12,9 +13,21 @@ class Cheesecake(
         val topping: String,
         val presentation: String,
         val categories: Set<Category>,
-        imageUrl: String
-)  : MenuItem(name, imageUrl){
+        imageURL: String
+)  : MenuItem(name, imageURL){
 
+        override fun getDescription(): HashMap<String, String> {
+                val descriptionMap = HashMap<String, String>()
+                descriptionMap["Name"] = name
+                descriptionMap["Crust"] = crust
+                descriptionMap["Nuts"] = nuts
+                descriptionMap["Dollops"] = dollops
+                descriptionMap["Topping"] = topping
+                descriptionMap["Presentation"] = presentation
+                descriptionMap["Categories"] = categories.joinToString()
+
+                return descriptionMap
+        }
 }
 
 val allCheesecakeList: List<Cheesecake> = listOf(
@@ -135,4 +148,5 @@ enum class Category(val nameString: String) {
         PASTRY("Pastry"),
         VANILLA("Vanilla")
 }
+
 
