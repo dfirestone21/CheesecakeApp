@@ -5,10 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mycheesecakes.R
+import com.example.mycheesecakes.databinding.FragmentFlashcardsSetupBinding
+import com.example.mycheesecakes.model.menuitems.menuItems
 
 
 class FlashcardsSetupFragment : Fragment() {
+
+    private lateinit var binding: FragmentFlashcardsSetupBinding
+    private val cheesecakes = menuItems
+    private val adapter = FlashcardsSetupAdapter(cheesecakes)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +26,14 @@ class FlashcardsSetupFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentFlashcardsSetupBinding.inflate(inflater)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_flashcards_setup, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.flashcardsSetupRecyclerview.layoutManager = LinearLayoutManager(activity)
+        binding.flashcardsSetupRecyclerview.adapter = adapter
     }
 }

@@ -17,6 +17,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_flashcardsSetupFragment"
+            app:destination="@id/flashcardsSetupFragment" />
     </fragment>
     <fragment
         android:id="@+id/quizSetupFragment"
@@ -49,4 +52,18 @@
         android:name="com.example.mycheesecakes.ui.quiz.QuizResultsFragment"
         android:label="fragment_quiz_results"
         tools:layout="@layout/fragment_quiz_results" />
+    <fragment
+        android:id="@+id/flashcardsSetupFragment"
+        android:name="com.example.mycheesecakes.ui.flashcards.flashcardssetup.FlashcardsSetupFragment"
+        android:label="fragment_flashcards_setup"
+        tools:layout="@layout/fragment_flashcards_setup" >
+        <action
+            android:id="@+id/action_flashcardsSetupFragment_to_flashcardsFragment"
+            app:destination="@id/flashcardsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/flashcardsFragment"
+        android:name="com.example.mycheesecakes.ui.flashcards.FlashcardsFragment"
+        android:label="fragment_flashcards"
+        tools:layout="@layout/fragment_flashcards" />
 </navigation>

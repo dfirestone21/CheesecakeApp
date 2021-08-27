@@ -18,4 +18,7 @@
     <string name="presentation_practice">presentation practice</string>
     <string name="desserttype">DessertType</string>
     <string name="dessert_category_image">Dessert category image</string>
+    <string name="cheesecakes">Cheesecakes</string>
+    <string name="desserts">Desserts</string>
+    <string name="drinks">Drinks</string>
 </resources>

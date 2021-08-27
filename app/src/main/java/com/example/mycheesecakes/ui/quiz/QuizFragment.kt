@@ -86,7 +86,7 @@ class QuizFragment : Fragment(), View.OnClickListener {
             binding.cheesecakeNameTextview.text = cheesecake.name
             Glide
                     .with(this)
-                    .load(cheesecake.imageUrl)
+                    .load(cheesecake.imageURL)
                     .centerCrop()
                     .placeholder(R.drawable.fresh_strawberry_cheesecake)
                     .into(binding.cheesecakeImageview)
