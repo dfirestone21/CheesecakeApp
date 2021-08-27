@@ -1,4 +1,4 @@
-package com.example.mycheesecakes.model.desserts
+package com.example.mycheesecakes.model.menuitems
 
 import com.example.mycheesecakes.model.Category
 import com.example.mycheesecakes.model.Cheesecake

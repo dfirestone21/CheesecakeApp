@@ -1,4 +1,4 @@
-package com.example.mycheesecakes.model.desserts
+package com.example.mycheesecakes.model.menuitems
 
 class Drink(
     name: String,
