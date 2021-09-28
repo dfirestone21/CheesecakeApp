@@ -1,9 +1,8 @@
-package com.example.mycheesecakes.model.menuitems
+package com.example.mycheesecakes.domain.model.menuitems
 
-import com.example.mycheesecakes.model.Category
-import com.example.mycheesecakes.model.Cheesecake
-import com.example.mycheesecakes.model.Nuts
-import java.io.Serializable
+import com.example.mycheesecakes.domain.model.Category
+import com.example.mycheesecakes.domain.model.Cheesecake
+import com.example.mycheesecakes.domain.model.Nuts
 
 const val MENU_ITEM_CHEESECAKE = 0
 const val MENU_ITEM_DESSERT = 1
@@ -11,7 +10,8 @@ const val MENU_ITEM_DRINK = 2
 
 abstract class MenuItem(
     open val name: String,
-    open val imageURL: String
+    open val imageURL: String,
+    open var nutrition: Nutrition? = null
 ){
 
     abstract fun getProperties(): HashMap<String,String>

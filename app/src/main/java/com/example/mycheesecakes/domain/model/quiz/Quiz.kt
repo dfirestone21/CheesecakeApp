@@ -1,4 +1,4 @@
-package com.example.mycheesecakes.model
+package com.example.mycheesecakes.domain.model
 
 import android.util.Log
 import com.example.mycheesecakes.ui.quiz.TAG

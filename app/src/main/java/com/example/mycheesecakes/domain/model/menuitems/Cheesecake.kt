@@ -1,7 +1,7 @@
-package com.example.mycheesecakes.model
+package com.example.mycheesecakes.domain.model
 
-import com.example.mycheesecakes.model.Category.*
-import com.example.mycheesecakes.model.menuitems.MenuItem
+import com.example.mycheesecakes.domain.model.Category.*
+import com.example.mycheesecakes.domain.model.menuitems.MenuItem
 import kotlin.collections.HashMap
 
 class Cheesecake(

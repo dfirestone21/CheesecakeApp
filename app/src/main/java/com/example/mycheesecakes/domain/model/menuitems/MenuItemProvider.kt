@@ -1,6 +1,5 @@
-package com.example.mycheesecakes.model.menuitems
+package com.example.mycheesecakes.domain.model.menuitems
 
-import com.example.mycheesecakes.model.Cheesecake
 import java.lang.IllegalArgumentException
 
 abstract class MenuItemProvider
