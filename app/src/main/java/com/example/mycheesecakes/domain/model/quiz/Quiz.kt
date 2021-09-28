@@ -29,7 +29,7 @@ data class Question(
         return when (question) {
             "Cheesecake" -> cheesecake.cheesecake
             "Crust" -> cheesecake.crust
-            "Nuts" -> cheesecake.nuts
+            "Nuts" -> cheesecake.nuts.name
             "Dollops" -> cheesecake.dollops
             "Topping" -> cheesecake.topping
             "Presentation" -> cheesecake.presentation

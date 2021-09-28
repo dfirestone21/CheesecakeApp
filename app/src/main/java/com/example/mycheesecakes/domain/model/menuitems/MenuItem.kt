@@ -2,18 +2,25 @@ package com.example.mycheesecakes.model.menuitems
 
 import com.example.mycheesecakes.model.Category
 import com.example.mycheesecakes.model.Cheesecake
+import com.example.mycheesecakes.model.Nuts
+import java.io.Serializable
+
+const val MENU_ITEM_CHEESECAKE = 0
+const val MENU_ITEM_DESSERT = 1
+const val MENU_ITEM_DRINK = 2
 
 abstract class MenuItem(
-        val name: String,
-        val imageURL: String
-) {
+    open val name: String,
+    open val imageURL: String
+){
 
-    abstract fun getDescription(): HashMap<String,String>
+    abstract fun getProperties(): HashMap<String,String>
 
 }
 
+
 val menuItems: List<MenuItem> = listOf(
-    Cheesecake("Lemon Raspberry Cream Cheesecake", "Lemon with seedless imported raspberries", "Ladyfingers/White cake", "None", "Two",
+    Cheesecake("Lemon Raspberry Cream Cheesecake", "Lemon with seedless imported raspberries", "Ladyfingers/White cake", Nuts.NONE, "Two",
     "Lemon mousse", "One pasta spoon of raspberry puree",
     setOf(Category.FRUIT, Category.MOUSSE, Category.CAKE), "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_LemonRaspberryCreamCheesecake.jpg"),
     Dessert("Fresh Strawberry Shortcake","https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_StrawberryShortcake.jpg",setOf("Small Pasta Bowl"),
