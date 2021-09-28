@@ -1,32 +1,112 @@
 package com.example.mycheesecakes.ui.flashcards
 
+import android.graphics.Rect
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mycheesecakes.R
+import com.example.mycheesecakes.databinding.FragmentFlashcardsBinding
+import java.lang.IllegalArgumentException
+import com.example.mycheesecakes.domain.model.allCheesecakeList
+import com.example.mycheesecakes.domain.model.menuitems.*
 
-class FlashcardsFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = FlashcardsFragment()
-    }
-
+class FlashcardsFragment() : Fragment(), AdapterClickListener {
+    private lateinit var binding: FragmentFlashcardsBinding
+    private lateinit var adapter: FlashcardsRecyclerAdapter
     private lateinit var viewModel: FlashcardsViewModel
+    private lateinit var menuItems: List<MenuItem>
+    private lateinit var menuItem: MenuItem
+    private var menuItemType: Int = 0
+
+    private val TAG = "FlashcardsFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_flashcards, container, false)
+        Log.i(TAG, "onCreateView called")
+        binding = FragmentFlashcardsBinding.inflate(inflater)
+
+        // Get menuItemType from arguments
+        val bundle = arguments
+        val args = FlashcardsFragmentArgs.fromBundle(requireArguments())
+        menuItemType = args.menuItemType
+
+        // Setup the ViewModel
+        val viewModelFactory = FlashcardsViewModelFactory(menuItemType)
+        viewModel = ViewModelProvider(activity as ViewModelStoreOwner, viewModelFactory).get(FlashcardsViewModel::class.java)
+
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(FlashcardsViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.i(TAG, "onViewCreated called")
+        super.onViewCreated(view, savedInstanceState)
+
+        setupRecyclerView()
+    }
+
+
+    private fun setupRecyclerView() {
+        Log.i(TAG, "setupRecyclerView called")
+        menuItems =
+            when (menuItemType) {
+                MENU_ITEM_CHEESECAKE -> allCheesecakeList
+                MENU_ITEM_DESSERT -> allCheesecakeList
+                MENU_ITEM_DRINK -> allCheesecakeList
+                else -> throw IllegalArgumentException("Invalid ")
+            }
+
+        adapter = FlashcardsRecyclerAdapter(menuItems, this)
+        binding.flashcardsRecyclerview.layoutManager = LinearLayoutManager(context)
+        binding.flashcardsRecyclerview.adapter = adapter
+        binding.flashcardsRecyclerview.addItemDecoration(
+            FlashcardsItemDecoration(
+                resources.getDimension(
+                    R.dimen.default_margin
+                ).toInt()
+            )
+        )
+    }
+
+    // Used to set a given space in pixels around the CardViews
+    private class FlashcardsItemDecoration(private val spaceHeight: Int) :
+        RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            with(outRect) {
+                if (parent.getChildAdapterPosition(view) == 0) {
+                    top = spaceHeight
+                }
+                left = spaceHeight
+                right = spaceHeight
+                bottom = spaceHeight
+            }
+        }
+    }
+
+    override fun onRecyclerViewItemClicked(menuItem: MenuItem) {
+        Log.i(TAG,"onRecyclerViewItemClicked called. menuItem: ${menuItem.name}")
+        viewModel.onMenuItemFlashcardSelected(menuItem)
+
+        val action =
+            FlashcardsFragmentDirections.actionFlashcardsFragmentToFlashcardDetailsFragment(menuItemType)
+        findNavController().navigate(action)
     }
 
 }
+
+// TODO add search and filter buttons in the acton bar
+// TODO add a favorites option with each flashcard that assigns it to the top of the list

@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/flashcard_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:paddingTop="@dimen/default_margin"
+    android:paddingBottom="@dimen/default_margin"
+    app:cardCornerRadius="8dp">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/card_cheesecake_imageview"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/default_margin"
+        android:padding="@dimen/default_margin">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/card_cheesecake_imageview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="@color/list_background"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/fresh_strawberry_cheesecake" />
+
+        <TextView
+            android:id="@+id/flashcard_listitem_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cheesecake_name"
+            android:textColor="@color/list_text"
+            android:textSize="@dimen/large_string_size"
+            app:layout_constraintStart_toStartOf="@id/card_cheesecake_imageview"
+            app:layout_constraintTop_toBottomOf="@id/card_cheesecake_imageview" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

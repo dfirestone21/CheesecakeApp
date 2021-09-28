@@ -1,6 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="16dp"
+    android:background="@color/list_background">
+
+    <TextView
+        android:id="@+id/details_dessert_topping_property_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/list_text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/details_dessert_whip_property_textview"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/details_dessert_whip_property_textview"
+        app:layout_constraintTop_toBottomOf="@+id/details_dessert_whip_property_textview"
+        tools:text="topping property" />
+
+    <TextView
+        android:id="@+id/details_dessert_topping_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/list_text"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/details_dessert_topping_property_textview"
+        app:layout_constraintEnd_toEndOf="@id/details_dessert_whip_textview"
+        app:layout_constraintStart_toStartOf="@+id/details_dessert_whip_textview"
+        tools:text="topping" />
+
+    <TextView
+        android:id="@+id/details_dessert_whip_property_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/list_text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/details_dessert_topping_property_textview"
+        app:layout_constraintEnd_toEndOf="@+id/details_dessert_fudge_property_textview"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/details_dessert_fudge_property_textview"
+        app:layout_constraintTop_toBottomOf="@+id/details_dessert_fudge_property_textview"
+        tools:text="whip property" />
+
+    <TextView
+        android:id="@id/details_dessert_whip_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/list_text"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/details_dessert_whip_property_textview"
+        app:layout_constraintEnd_toEndOf="@+id/details_dessert_fudge_textview"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/details_dessert_fudge_textview"
+        tools:text="whip" />
+
+    <TextView
+        android:id="@+id/details_dessert_fudge_property_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/list_text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/details_dessert_whip_property_textview"
+        app:layout_constraintEnd_toEndOf="@+id/details_dessert_ice_cream_property_textview"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/details_dessert_ice_cream_property_textview"
+        app:layout_constraintTop_toBottomOf="@+id/details_dessert_ice_cream_property_textview"
+        tools:text="fudge property" />
+
+    <TextView
+        android:id="@+id/details_dessert_fudge_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/list_text"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/details_dessert_fudge_property_textview"
+        app:layout_constraintEnd_toEndOf="@+id/details_dessert_ice_cream_textview"
+        app:layout_constraintStart_toStartOf="@+id/details_dessert_ice_cream_textview"
+        tools:text="fudge" />
+
+    <TextView
+        android:id="@+id/details_dessert_ice_cream_property_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/list_text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/details_dessert_fudge_property_textview"
+        app:layout_constraintEnd_toEndOf="@+id/details_dessert_base_property_textview"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/details_dessert_base_property_textview"
+        app:layout_constraintTop_toBottomOf="@+id/details_dessert_base_property_textview"
+        tools:text="ice cream property" />
+
+    <TextView
+        android:id="@+id/details_dessert_ice_cream_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/list_text"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/details_dessert_ice_cream_property_textview"
+        app:layout_constraintEnd_toEndOf="@+id/details_dessert_base_textview"
+        app:layout_constraintStart_toStartOf="@+id/details_dessert_base_textview"
+        tools:text="ice_cream" />
+
+    <TextView
+        android:id="@+id/details_dessert_base_property_textview"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/list_text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/details_dessert_ice_cream_property_textview"
+        app:layout_constraintEnd_toEndOf="@+id/details_dessert_dishes_textview_property"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/details_dessert_dishes_textview_property"
+        app:layout_constraintTop_toBottomOf="@+id/details_dessert_dishes_textview_property"
+        tools:text="base property" />
+
+    <TextView
+        android:id="@+id/details_dessert_name_textview_property"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:textColor="@color/list_text"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="30th Anniversary Cheesecake" />
+
+    <TextView
+        android:id="@+id/details_dessert_dishes_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/list_text"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/details_dessert_dishes_textview_property"
+        app:layout_constraintEnd_toStartOf="@+id/details_dessert_dishes_textview_property"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="dishes" />
+
+    <TextView
+        android:id="@+id/details_dessert_dishes_textview_property"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/list_text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/details_dessert_base_property_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/details_dessert_dishes_textview"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="dishes_property" />
+
+    <TextView
+        android:id="@+id/details_dessert_base_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/list_text"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/details_dessert_base_property_textview"
+        app:layout_constraintEnd_toEndOf="@+id/details_dessert_dishes_textview"
+        app:layout_constraintStart_toStartOf="@id/details_dessert_dishes_textview"
+        tools:text="base" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

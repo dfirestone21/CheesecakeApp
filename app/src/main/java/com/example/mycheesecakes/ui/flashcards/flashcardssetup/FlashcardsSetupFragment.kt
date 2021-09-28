@@ -6,10 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.mycheesecakes.R
 import com.example.mycheesecakes.databinding.FragmentFlashcardsSetupBinding
-import com.example.mycheesecakes.model.menuitems.menuItems
+import com.example.mycheesecakes.domain.model.menuitems.menuItems
 
 
 class FlashcardsSetupFragment : Fragment() {
@@ -18,16 +16,11 @@ class FlashcardsSetupFragment : Fragment() {
     private val cheesecakes = menuItems
     private val adapter = FlashcardsSetupAdapter(cheesecakes)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFlashcardsSetupBinding.inflate(inflater)
-        // Inflate the layout for this fragment
         return binding.root
     }
 

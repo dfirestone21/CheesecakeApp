@@ -21,4 +21,11 @@
     <string name="cheesecakes">Cheesecakes</string>
     <string name="desserts">Desserts</string>
     <string name="drinks">Drinks</string>
+    <string name="cheesecake_flashcard">Cheesecake:</string>
+    <string name="crust_flashcard">Crust:</string>
+    <string name="dollops_flashcard">Dollops:</string>
+    <string name="name_flashcard">Name:</string>
+    <string name="nuts_flashcard">Nuts:</string>
+    <string name="presentation_flashcard">Presentation:</string>
+    <string name="topping_flashcard">Topping:</string>
 </resources>
