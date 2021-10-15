@@ -1,4 +1,4 @@
-package com.example.mycheesecakes.network
+package com.example.mycheesecakes.data.network
 
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
