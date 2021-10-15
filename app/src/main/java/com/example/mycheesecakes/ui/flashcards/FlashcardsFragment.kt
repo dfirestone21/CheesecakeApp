@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mycheesecakes.R
 import com.example.mycheesecakes.databinding.FragmentFlashcardsBinding
 import java.lang.IllegalArgumentException
-import com.example.mycheesecakes.domain.model.allCheesecakeList
 import com.example.mycheesecakes.domain.model.menuitems.*
 
 class FlashcardsFragment() : Fragment(), AdapterClickListener {
@@ -44,6 +44,9 @@ class FlashcardsFragment() : Fragment(), AdapterClickListener {
         val viewModelFactory = FlashcardsViewModelFactory(menuItemType)
         viewModel = ViewModelProvider(activity as ViewModelStoreOwner, viewModelFactory).get(FlashcardsViewModel::class.java)
 
+        if (menuItemType != viewModel.menuItemType) {
+            viewModel.onMenuItemTypeChanged(menuItemType)
+        }
         return binding.root
     }
 
@@ -51,20 +54,18 @@ class FlashcardsFragment() : Fragment(), AdapterClickListener {
         Log.i(TAG, "onViewCreated called")
         super.onViewCreated(view, savedInstanceState)
 
-        setupRecyclerView()
+        viewModel.menuItemsLiveData.observe(viewLifecycleOwner) {
+            menuItems = it
+            Log.i(TAG,"menuItems changed: ${menuItems[0]}")
+            setupRecyclerView()
+        }
     }
 
 
     private fun setupRecyclerView() {
         Log.i(TAG, "setupRecyclerView called")
-        menuItems =
-            when (menuItemType) {
-                MENU_ITEM_CHEESECAKE -> allCheesecakeList
-                MENU_ITEM_DESSERT -> allCheesecakeList
-                MENU_ITEM_DRINK -> allCheesecakeList
-                else -> throw IllegalArgumentException("Invalid ")
-            }
-
+        binding.flashcardsRecyclerview.visibility = RecyclerView.VISIBLE
+        binding.progressBar1.visibility = RecyclerView.GONE
         adapter = FlashcardsRecyclerAdapter(menuItems, this)
         binding.flashcardsRecyclerview.layoutManager = LinearLayoutManager(context)
         binding.flashcardsRecyclerview.adapter = adapter

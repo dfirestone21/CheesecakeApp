@@ -1,6 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/list_background">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/drinksConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/drink_name_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:textColor="@color/list_text"
+            android:textSize="26sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Caramel Royal Macchiato" />
+
+
+        <TextView
+            android:id="@+id/drink_espresso_shots_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:gravity="center_horizontal"
+            android:text="Espresso Shots:"
+            android:textColor="@color/list_text"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/drink_espresso_shots_value_textview"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/drink_espresso_shots_value_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="40dp"
+            android:textColor="@color/list_text"
+            android:textSize="20sp"
+            android:layout_marginBottom="@dimen/large_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/drink_espresso_shots_textview"
+            app:layout_constraintTop_toBottomOf="@id/drink_name_textview"
+            app:layout_constraintBottom_toTopOf="@id/drink_milk_value_textview"
+            tools:text="Espresso Value" />
+
+        <TextView
+            android:id="@+id/drink_milk_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/large_margin"
+            android:gravity="center_horizontal"
+            android:text="Milk:"
+            android:textColor="@color/list_text"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/drink_milk_value_textview"
+            app:layout_constraintBottom_toTopOf="@id/drink_foam_textview"
+            app:layout_constraintEnd_toEndOf="@id/drink_espresso_shots_textview"
+            app:layout_constraintStart_toStartOf="@id/drink_espresso_shots_textview" />
+
+        <TextView
+            android:id="@+id/drink_milk_value_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Milk Value"
+            android:textColor="@color/list_text"
+            android:textSize="20sp"
+            android:layout_marginBottom="@dimen/large_margin"
+            app:layout_constraintStart_toStartOf="@id/drink_espresso_shots_value_textview"
+            app:layout_constraintEnd_toEndOf="@id/drink_espresso_shots_value_textview"
+            app:layout_constraintBottom_toTopOf="@id/drink_foam_value_textview"
+            app:layout_constraintTop_toBottomOf="@id/drink_espresso_shots_value_textview" />
+
+        <TextView
+            android:id="@+id/drink_foam_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Foam:"
+            android:textColor="@color/list_text"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/drink_foam_value_textview"
+            app:layout_constraintEnd_toEndOf="@id/drink_milk_textview"
+            app:layout_constraintStart_toStartOf="@id/drink_milk_textview" />
+
+        <TextView
+            android:id="@+id/drink_foam_value_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Foam Value"
+            android:textColor="@color/list_text"
+            android:textSize="20sp"
+            android:layout_marginBottom="@dimen/large_margin"
+            app:layout_constraintStart_toStartOf="@id/drink_milk_value_textview"
+            app:layout_constraintEnd_toEndOf="@id/drink_milk_value_textview"
+            app:layout_constraintBottom_toTopOf="@id/drink_whip_value_textview"
+            app:layout_constraintTop_toBottomOf="@id/drink_milk_value_textview" />
+
+        <TextView
+            android:id="@+id/drink_whip_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Whip:"
+            android:textColor="@color/list_text"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/drink_whip_value_textview"
+            app:layout_constraintEnd_toEndOf="@id/drink_foam_textview"
+            app:layout_constraintStart_toStartOf="@id/drink_foam_textview" />
+
+        <TextView
+            android:id="@+id/drink_whip_value_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Whip Value"
+            android:textColor="@color/list_text"
+            android:textSize="20sp"
+            android:layout_marginBottom="@dimen/large_margin"
+            app:layout_constraintStart_toStartOf="@id/drink_foam_value_textview"
+            app:layout_constraintEnd_toEndOf="@id/drink_foam_value_textview"
+            app:layout_constraintBottom_toTopOf="@id/drink_glassware_value_textview"
+            app:layout_constraintTop_toBottomOf="@id/drink_foam_value_textview" />
+
+        <TextView
+            android:id="@+id/drink_glassware_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Glassware:"
+            android:textColor="@color/list_text"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/drink_glassware_value_textview"
+            app:layout_constraintEnd_toEndOf="@id/drink_whip_textview"
+            app:layout_constraintStart_toStartOf="@id/drink_whip_textview" />
+
+        <TextView
+            android:id="@+id/drink_glassware_value_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Glassware Value"
+            android:textColor="@color/list_text"
+            android:textSize="20sp"
+            android:layout_marginBottom="@dimen/large_margin"
+            app:layout_constraintStart_toStartOf="@id/drink_whip_value_textview"
+            app:layout_constraintEnd_toEndOf="@id/drink_whip_value_textview"
+            app:layout_constraintBottom_toTopOf="@id/drink_other_ingredients_value_textview"
+            app:layout_constraintTop_toBottomOf="@id/drink_whip_value_textview" />
+
+        <TextView
+            android:id="@+id/drink_other_ingredients_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Other Ingredients:"
+            android:textColor="@color/list_text"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/drink_other_ingredients_value_textview"
+            app:layout_constraintEnd_toEndOf="@id/drink_glassware_textview"
+            app:layout_constraintStart_toStartOf="@id/drink_glassware_textview" />
+
+        <TextView
+            android:id="@+id/drink_other_ingredients_value_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Other Ingredients Value"
+            android:textColor="@color/list_text"
+            android:textSize="20sp"
+            android:layout_marginBottom="@dimen/large_margin"
+            app:layout_constraintStart_toStartOf="@id/drink_glassware_value_textview"
+            app:layout_constraintEnd_toEndOf="@id/drink_glassware_value_textview"
+            app:layout_constraintBottom_toTopOf="@id/drink_garnish_value_textview"
+            app:layout_constraintTop_toBottomOf="@id/drink_glassware_value_textview" />
+
+        <TextView
+            android:id="@+id/drink_garnish_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Garnish:"
+            android:textColor="@color/list_text"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/drink_garnish_value_textview"
+            app:layout_constraintEnd_toEndOf="@id/drink_other_ingredients_textview"
+            app:layout_constraintStart_toStartOf="@id/drink_other_ingredients_textview" />
+
+        <TextView
+            android:id="@+id/drink_garnish_value_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Garnish Value"
+            android:textColor="@color/list_text"
+            android:textSize="20sp"
+            android:layout_marginBottom="@dimen/large_margin"
+            app:layout_constraintStart_toStartOf="@id/drink_other_ingredients_value_textview"
+            app:layout_constraintEnd_toEndOf="@id/drink_other_ingredients_value_textview"
+            app:layout_constraintBottom_toTopOf="@id/drink_straw_value_textview"
+            app:layout_constraintTop_toBottomOf="@id/drink_other_ingredients_value_textview" />
+
+        <TextView
+            android:id="@+id/drink_straw_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Straw:"
+            android:textColor="@color/list_text"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/drink_straw_value_textview"
+            app:layout_constraintEnd_toEndOf="@id/drink_garnish_textview"
+            app:layout_constraintStart_toStartOf="@id/drink_garnish_textview" />
+
+        <TextView
+            android:id="@+id/drink_straw_value_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Straw Value"
+            android:textColor="@color/list_text"
+            android:textSize="20sp"
+            android:layout_marginBottom="@dimen/large_margin"
+            app:layout_constraintStart_toStartOf="@id/drink_garnish_value_textview"
+            app:layout_constraintEnd_toEndOf="@id/drink_garnish_value_textview"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/drink_garnish_value_textview" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
