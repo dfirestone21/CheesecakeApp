@@ -17,10 +17,17 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_flashcardsSetupFragment"
+            app:destination="@id/flashcardsSetupFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/quizSetupFragment"
-        android:name="com.example.mycheesecakes.ui.quiz.QuizSetupFragment"
+        android:name="com.example.mycheesecakes.ui.quiz.quizsetup.QuizSetupFragment"
         android:label="fragment_quiz_setup"
         tools:layout="@layout/fragment_quiz_setup" >
         <action
@@ -49,4 +56,50 @@
         android:name="com.example.mycheesecakes.ui.quiz.QuizResultsFragment"
         android:label="fragment_quiz_results"
         tools:layout="@layout/fragment_quiz_results" />
+    <fragment
+        android:id="@+id/flashcardsSetupFragment"
+        android:name="com.example.mycheesecakes.ui.flashcards.flashcardssetup.FlashcardsSetupFragment"
+        android:label="fragment_flashcards_setup"
+        tools:layout="@layout/fragment_flashcards_setup" >
+        <action
+            android:id="@+id/action_flashcardsSetupFragment_to_flashcardsFragment"
+            app:destination="@id/flashcardsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+            <argument
+                android:name="menuItemType"
+                app:argType="integer" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/flashcardsFragment"
+        android:name="com.example.mycheesecakes.ui.flashcards.FlashcardsFragment"
+        android:label="fragment_flashcards"
+        tools:layout="@layout/fragment_flashcards" >
+        <argument
+            android:name="menuItemType"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_flashcardsFragment_to_flashcardDetailsFragment"
+            app:destination="@id/flashcardDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+            <argument
+                android:name="menuItemType"
+                app:argType="integer" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/flashcardDetailsFragment"
+        android:name="com.example.mycheesecakes.ui.flashcards.FlashcardDetailsFragment"
+        android:label="fragment_flashcard_details"
+        tools:layout="@layout/fragment_flashcard_details" >
+        <argument
+            android:name="menuItemType"
+            app:argType="integer" />
+    </fragment>
 </navigation>

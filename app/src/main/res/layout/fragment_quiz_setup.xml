@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/secondary"
     android:theme="@style/Theme.MyCheesecakes"
-    tools:context=".ui.quiz.QuizSetupFragment">
+    tools:context=".ui.quiz.quizsetup.QuizSetupFragment">
 
 
     <TextView

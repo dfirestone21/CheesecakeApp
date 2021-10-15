@@ -1,4 +1,4 @@
-package com.example.mycheesecakes.ui.quiz
+package com.example.mycheesecakes.ui.quiz.quizsetup
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.mycheesecakes.databinding.FragmentQuizSetupBinding
-import com.example.mycheesecakes.ui.quiz.QuizSetupFragmentDirections
+import com.example.mycheesecakes.ui.quiz.quizsetup.QuizSetupFragmentDirections
 import java.util.*
 
 

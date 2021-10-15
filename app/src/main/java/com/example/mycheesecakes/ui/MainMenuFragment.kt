@@ -32,8 +32,15 @@ class MainMenuFragment : Fragment() {
             val action = MainMenuFragmentDirections.actionMainMenuFragmentToQuizSetupFragment()
             findNavController().navigate(action)
         }
+
+        binding.studyFlashcardsButton.setOnClickListener{
+            val action = MainMenuFragmentDirections.actionMainMenuFragmentToFlashcardsSetupFragment()
+            findNavController().navigate(action)
+        }
         return binding.root
     }
+
+    //TODO move the button click listeners into one method
 
 
 

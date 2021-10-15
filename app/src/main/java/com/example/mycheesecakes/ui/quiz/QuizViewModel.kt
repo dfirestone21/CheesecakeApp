@@ -6,9 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mycheesecakes.model.Category
-import com.example.mycheesecakes.model.Cheesecake
-import com.example.mycheesecakes.model.allCheesecakeList
+import com.example.mycheesecakes.domain.model.Category
+import com.example.mycheesecakes.domain.model.Cheesecake
+import com.example.mycheesecakes.domain.model.allCheesecakeList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
@@ -220,7 +220,7 @@ class QuizViewModel(private val cheesecakeType: Int) : ViewModel() {
                 "Nuts" -> {
                     cheesecakeList.forEach {
                         if (!answers.contains(it.nuts)) {
-                            answers.add(it.nuts)
+                            answers.add(it.nuts.toString())
                         }
                     }
                     answers.apply {
@@ -265,7 +265,7 @@ class QuizViewModel(private val cheesecakeType: Int) : ViewModel() {
         return when (category) {
             "Cheesecake" -> cheesecake.cheesecake
             "Crust" -> cheesecake.crust
-            "Nuts" -> cheesecake.nuts
+            "Nuts" -> cheesecake.nuts.toString()
             "Dollops" -> cheesecake.dollops
             "Topping" -> cheesecake.topping
             "Presentation" -> cheesecake.presentation
@@ -345,6 +345,7 @@ class QuizViewModel(private val cheesecakeType: Int) : ViewModel() {
     }
 }
 
+//TODO GameController
 //TODO retrieve cheesecake list with coroutines
 //TODO store all the cheesecakes, questions and answers in Room
 //TODO COMMENTS!
