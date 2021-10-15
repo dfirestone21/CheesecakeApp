@@ -12,24 +12,11 @@ class Cheesecake(
     val dollops: String,
     val topping: String,
     val presentation: String,
-    val categories: Set<Category>,
-    override val imageURL: String
-) : MenuItem(name, imageURL) {
+    val categories: Set<Category>,  // Change to List
+    override val imageURL: String,
+    override val id: String? = null,
+) : MenuItem(id = id, name = name, imageURL = imageURL) {
 
-    override fun getProperties(): HashMap<String, String> {
-        val propertyMap = HashMap<String, String>()
-
-        propertyMap["Name"] = name
-        propertyMap["Cheesecake"] = cheesecake
-        propertyMap["Crust"] = crust
-        propertyMap["Nuts"] = nuts.toString()
-        propertyMap["Dollops"] = dollops
-        propertyMap["Topping"] = topping
-        propertyMap["Presentation"] = presentation
-        propertyMap["Categories"] = categories.joinToString()
-
-        return propertyMap
-    }
 }
 
 val allCheesecakeList: List<Cheesecake> = listOf(
@@ -54,14 +41,14 @@ val allCheesecakeList: List<Cheesecake> = listOf(
         "Whip",
         setOf(
             CANDY, NUTS,
-            KIDS_FAVE
+            KIDSFAVE
         ),
         "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_AdamsPeanutButterCupFudgeRipple.jpg"
     ),
     Cheesecake(
         "Caramel Apple Cheesecake", "Original cheesecake loaded with caramel apples",
         "Graham cracker", Nuts.NONE, "Two", "Caramel", "streusel sprinkled on whip", setOf(
-            KIDS_FAVE, FRUIT
+            KIDSFAVE, FRUIT
         ),
         "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_CaramelAppleCheesecake.jpg"
     ),
@@ -81,7 +68,7 @@ val allCheesecakeList: List<Cheesecake> = listOf(
         "Cream Cheese Frosting",
         "Whip and confetti sprinkled evenly over the entire plate and dessert",
         setOf(
-            KIDS_FAVE, CHOCOLATE, MOUSSE
+            KIDSFAVE, CHOCOLATE, MOUSSE
         ),
         "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_CelebrationCheesecake.jpg"
     ),
@@ -93,7 +80,7 @@ val allCheesecakeList: List<Cheesecake> = listOf(
         "Two",
         "Snickers",
         "Whip, caramel and peanuts",
-        setOf(CHOCOLATE, NUTS, KIDS_FAVE, CARAMEL),
+        setOf(CHOCOLATE, NUTS, KIDSFAVE, CARAMEL),
         "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_ChocolateCarameliciousCheesecake.jpg"
     ),
     Cheesecake(
@@ -137,7 +124,7 @@ val allCheesecakeList: List<Cheesecake> = listOf(
         "One",
         "Cream cheese frosting and light caramel",
         "Caramel swirl on plate, cinnamon powdered sugar",
-        setOf(KIDS_FAVE, CINNAMON),
+        setOf(KIDSFAVE, CINNAMON),
         "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_CinnabonCinnamonSwirlCheesecake.jpg"
     ),
     Cheesecake(
@@ -181,7 +168,7 @@ val allCheesecakeList: List<Cheesecake> = listOf(
         "Two",
         "Chocolate Mousse with ganache, chocolate powder",
         "\'S\' on plate with w/ Chocolate square",
-        setOf(CHOCOLATE, CAKE, MOUSSE, CANDY, GLUTEN_FREE),
+        setOf(CHOCOLATE, CAKE, MOUSSE, CANDY, GLUTENFREE),
         "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_GodivaCheesecake.jpg"
     ),
     Cheesecake(
@@ -247,7 +234,7 @@ val allCheesecakeList: List<Cheesecake> = listOf(
         "One dollop of Low-Licious whip",
         "None",
         "Mint sprig",
-        setOf(LOW_CARB, GLUTEN_FREE),
+        setOf(LOWCARB, GLUTENFREE),
         "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_LowLicious.jpg"
     ),
     Cheesecake(
@@ -258,7 +245,7 @@ val allCheesecakeList: List<Cheesecake> = listOf(
         "One dollop of Low-Licious whip",
         "None",
         "Mint sprig and a bullet of strawberries",
-        setOf(LOW_CARB, GLUTEN_FREE),
+        setOf(LOWCARB, GLUTENFREE),
         "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_LowLiciousStrawberry.jpg"
     ),
     Cheesecake(
@@ -280,7 +267,7 @@ val allCheesecakeList: List<Cheesecake> = listOf(
         "One",
         "Oreo cookie wafer with 1/2 oz of Oreo Crumbles",
         "One front dollop with an Oreo cookie wafer and 1/2 oz of Oreo Crumbles",
-        setOf(CHOCOLATE, KIDS_FAVE),
+        setOf(CHOCOLATE, KIDSFAVE),
         "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_OreoDreamExtremeCheesecake.jpg"
     ),
     Cheesecake(
@@ -422,6 +409,8 @@ val allCheesecakeList: List<Cheesecake> = listOf(
 
 )
 
+
+
 enum class Category(val nameString: String) {
     CHOCOLATE("Chocolate Lover"),
     FRUIT("Fruit"),
@@ -430,36 +419,40 @@ enum class Category(val nameString: String) {
     CARAMEL("Caramel"),
     CANDY("Candy"),
     CAKE("Cake"),
-    KIDS_FAVE("Kids' Favorite"),
-    CINNAMON("Cinnamon Lover"),
-    GLUTEN_FREE("Gluten Free"),
+    KIDSFAVE("Kids' Favorite"),
+    CINNAMON("Cinnamon"),
+    GLUTENFREE("GlutenFree"),
     COFFEE("Coffee"),
     LIQUEUR("Liqueur"),
-    LOW_CARB("Low Carb"),
+    LOWCARB("Low Carb"),
     SEASONAL("Seasonal"),
     PASTRY("Pastry"),
-    VANILLA("Vanilla")
+    VANILLA("Vanilla"),
 }
 
 enum class Nuts {
+    //@SerializedName("None")
     NONE {
         override fun toString() = "None"
     },
+    //@SerializedName("Peanuts")
     PEANUTS  {
         override fun toString() = "Peanuts"
     },
+    //@SerializedName("Pecans")
     PECANS {
         override fun toString() = "Pecans"
     },
+    //@SerializedName("Hazelnut")
     HAZELNUTS {
         override fun toString() = "Hazelnut"
     },
+    //@SerializedName("Brickle")
     BRICKLE {
         override fun toString() = "Brickle"
+    },
+    HAZELNUT {
+        override fun toString() = "Hazelnut"
     };
 
-    override fun toString() = ""
-
 }
-
-

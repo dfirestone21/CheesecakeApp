@@ -1,7 +1,7 @@
 package com.example.mycheesecakes.domain.model.menuitems
 
 class Drink(
-    name: String,
+    override val name: String,
     val shots: Int,
     val milk: Milk,
     val foam: Foam,
@@ -10,24 +10,11 @@ class Drink(
     val otherIngredients: String,
     val garnish: String,
     val straw: Straw,
-    imageURL: String
-) : MenuItem(name, imageURL) {
+    override val imageURL: String,
+    override val id: String? = null
+) : MenuItem(id = id, name = name, imageURL = imageURL) {
 
-    override fun getProperties(): HashMap<String, String> {
-        val propertyMap = HashMap<String, String>()
 
-        propertyMap["Name"] = name
-        propertyMap["Shots"] = shots.toString()
-        propertyMap["Milk"] = milk.toString()
-        propertyMap["Foam"] = foam.toString()
-        propertyMap["Whip"] = hasWhip.toString()
-        propertyMap["Glassware"] = glassware.toString()
-        propertyMap["Other Ingredients"] = otherIngredients
-        propertyMap["Garnish"] = garnish
-        propertyMap["Straw"] = straw.toString()
-
-        return propertyMap
-    }
 
     enum class Foam {
         NONE {
@@ -39,8 +26,6 @@ class Drink(
         LONG {
             override fun toString() = "Long Foam (5 seconds)"
         };
-
-        override fun toString() = ""
     }
 
     enum class Milk {
@@ -59,9 +44,6 @@ class Drink(
         TWELVE {
             override fun toString() = "12 fz"
         };
-
-        override fun toString() = ""
-
     }
 
     enum class Glassware {
@@ -80,9 +62,10 @@ class Drink(
         },
         KIDS {
             override fun toString() = "Kids' Cup"
+        },
+        NONE {
+            override fun toString() = "None"
         };
-
-        override fun toString() = ""
     }
 
     enum class Straw {
@@ -95,7 +78,5 @@ class Drink(
         TURBO {
             override fun toString() = "1 Turbo Straw"
         };
-
-        override fun toString() = ""
     }
 }

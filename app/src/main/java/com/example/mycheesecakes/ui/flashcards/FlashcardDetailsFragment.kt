@@ -71,43 +71,40 @@ class FlashcardDetailsFragment : Fragment() {
     private fun bindPropertiesToViews(menuItem: MenuItem) {
         when {
             (menuItem is Cheesecake) -> {
-                    val propertyMap = menuItem.getProperties()
                     (binding as FragmentFlashcardDetailsCheesecakeBinding).apply {
-                        detailsCheesecakeCheescakeTextview.text = getString(R.string.cheesecake_flashcard)
-                        detailsCheesecakeCheescakePropertyTextview.text = propertyMap["Cheesecake"]
-                        detailsCheesecakeCrustTextview.text = getString(R.string.crust_flashcard)
-                        detailsCheesecakeCrustPropertyTextview.text = propertyMap["Crust"]
-                        detailsCheeescakeDollopsTextview.text = getString(R.string.dollops_flashcard)
-                        detailsCheesecakeDollopsPropertyTextview.text = propertyMap["Dollops"]
-                        detailsCheesecakeNamePropertyTextview.text = propertyMap["Name"]
-                        detailsCheesecakeNutsTextview.text = getString(R.string.nuts_flashcard)
+                        detailsCheesecakeCheescakePropertyTextview.text = menuItem.cheesecake
+                        detailsCheesecakeCrustPropertyTextview.text = menuItem.crust
+                        detailsCheesecakeDollopsPropertyTextview.text = menuItem.dollops
+                        detailsCheesecakeNamePropertyTextview.text = menuItem.name
                         if (menuItem.nuts != Nuts.NONE) {
                             detailsCheesecakeNutsTextview.setTextColor(Color.RED)
                             detailsCheesecakeNutsPropertyTextview.setTextColor(Color.RED)
                         }
-                        detailsCheesecakeNutsPropertyTextview.text = propertyMap["Nuts"]
-                        detailsCheesecakePresentationTextview.text = getString(R.string.presentation_flashcard)
-                        detailsCheesecakePresentationPropertyTextview.text = propertyMap["Presentation"]
-                        detailsCheesecakeToppingTextview.text = getString(R.string.topping_flashcard)
-                        detailsCheesecakeToppingPropertyTextview.text = propertyMap["Topping"]
+                        detailsCheesecakeNutsPropertyTextview.text = menuItem.nuts.toString()
+                        detailsCheesecakePresentationPropertyTextview.text = menuItem.presentation
+                        detailsCheesecakeToppingPropertyTextview.text = menuItem.topping
                     }
             }
             (menuItem is Dessert) -> {
-                val propertyMap = menuItem.getProperties()
                 (binding as FragmentFlashcardDetailsDessertBinding).apply {
-                    detailsDessertBaseTextview.text = "Base:"
-                    detailsDessertBasePropertyTextview.text = propertyMap["Base"]
-                    detailsDessertDishesTextview.text = "Dishes:"
-                    detailsDessertDishesTextviewProperty.text = propertyMap["Dishes"]
-                    detailsDessertFudgeTextview.text = "Fudge:"
-                    detailsDessertFudgePropertyTextview.text = propertyMap["Fudge"]
-                    detailsDessertIceCreamTextview.text = "Ice Cream:"
-                    detailsDessertIceCreamPropertyTextview.text = propertyMap["Ice Cream"]
-                    detailsDessertNameTextviewProperty.text = propertyMap["Name"]
-                    detailsDessertToppingTextview.text = "Toppings:"
-                    detailsDessertToppingPropertyTextview.text = propertyMap["Toppings"]
-                    detailsDessertWhipTextview.text = "Whipped Cream:"
-                    detailsDessertWhipPropertyTextview.text = propertyMap["Whipped Cream"]
+                    detailsDessertBasePropertyTextview.text = menuItem.base
+                    detailsDessertDishesTextviewProperty.text = menuItem.dishes.toString()
+                    detailsDessertFudgePropertyTextview.text = menuItem.fudge
+                    detailsDessertIceCreamPropertyTextview.text = menuItem.iceCream
+                    detailsDessertNameTextviewProperty.text = menuItem.name
+                    detailsDessertWhipPropertyTextview.text = menuItem.whippedCream
+                }
+            }
+            (menuItem is Drink) -> {
+                (binding as FragmentFlashcardDetailsDrinkBinding).apply {
+                    drinkEspressoShotsValueTextview.text = menuItem.shots.toString()
+                    drinkMilkValueTextview.text = menuItem.milk.toString()
+                    drinkFoamValueTextview.text = menuItem.foam.toString()
+                    drinkWhipValueTextview.text = menuItem.hasWhip.toString()
+                    drinkGlasswareValueTextview.text = menuItem.glassware.toString()
+                    drinkOtherIngredientsValueTextview.text = menuItem.otherIngredients
+                    drinkGarnishValueTextview.text = menuItem.garnish
+                    drinkStrawValueTextview.text = menuItem.straw.toString()
                 }
             }
             else -> throw IllegalArgumentException("Invalid menuItem")
