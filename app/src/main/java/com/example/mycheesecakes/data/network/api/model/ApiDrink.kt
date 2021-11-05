@@ -30,6 +30,8 @@ data class ApiDrink(
         @SerializedName("straws")
         val straws: String?,
         @SerializedName("image_url")
-        val imageUrl: String?
+        val imageUrl: String?,
+        @SerializedName("id")
+        val id: String?
     )
 }

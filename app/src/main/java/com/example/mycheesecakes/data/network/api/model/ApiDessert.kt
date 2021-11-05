@@ -26,6 +26,8 @@ data class ApiDessert(
         @SerializedName("name")
         val name: String?,
         @SerializedName("whip_cream")
-        val whippedCream: String?
+        val whippedCream: String?,
+        @SerializedName("id")
+        val id: String?
     )
 }

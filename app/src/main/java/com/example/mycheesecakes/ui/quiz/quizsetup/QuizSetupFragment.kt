@@ -7,17 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.mycheesecakes.databinding.FragmentQuizSetupBinding
-import com.example.mycheesecakes.ui.quiz.quizsetup.QuizSetupFragmentDirections
+import com.example.mycheesecakes.domain.model.menuitems.MenuItem
 import java.util.*
 
 
 class QuizSetupFragment : Fragment(), View.OnClickListener {
 
     private lateinit var binding: FragmentQuizSetupBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,15 +29,15 @@ class QuizSetupFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             binding.chocolateButton.id -> {
-                val action = QuizSetupFragmentDirections.actionQuizSetupFragmentToQuizFragment(0)
+                val action = QuizSetupFragmentDirections.actionQuizSetupFragmentToQuizFragment(MenuItem.TYPE_CHEESECAKE)
                 findNavController().navigate(action)
             }
             binding.fruitButton.id -> {
-                val action = QuizSetupFragmentDirections.actionQuizSetupFragmentToQuizFragment(1)
+                val action = QuizSetupFragmentDirections.actionQuizSetupFragmentToQuizFragment(MenuItem.TYPE_DESSERT)
                 findNavController().navigate(action)
             }
             binding.otherButton.id -> {
-                val action = QuizSetupFragmentDirections.actionQuizSetupFragmentToQuizFragment(2)
+                val action = QuizSetupFragmentDirections.actionQuizSetupFragmentToQuizFragment(MenuItem.TYPE_DRINK)
                 findNavController().navigate(action)
             }
             binding.presentationButton.id -> {

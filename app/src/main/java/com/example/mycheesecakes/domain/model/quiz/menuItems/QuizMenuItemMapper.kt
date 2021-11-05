@@ -4,9 +4,13 @@ import com.example.mycheesecakes.domain.model.Cheesecake
 import com.example.mycheesecakes.domain.model.menuitems.Dessert
 import com.example.mycheesecakes.domain.model.menuitems.Drink
 import com.example.mycheesecakes.domain.model.menuitems.MenuItem
+import com.example.mycheesecakes.domain.model.menuitems.util.toStringWithoutBrackets
 import java.lang.IllegalArgumentException
 
 class QuizMenuItemMapper {
+    /**
+     * Maps MenuItems to QuizMenuItems which are used for the Quiz
+     */
     operator fun invoke(menuItem: MenuItem): QuizMenuItem {
         return when (menuItem) {
             is Cheesecake -> {
@@ -25,7 +29,7 @@ class QuizMenuItemMapper {
                 QuizDessertMenuItem(
                     name = menuItem.name,
                     imageURL = menuItem.imageURL,
-                    dishes = menuItem.dishes.toString(),
+                    dishes = menuItem.dishes.toStringWithoutBrackets(),
                     base = menuItem.base,
                     iceCream = menuItem.iceCream,
                     fudge = menuItem.fudge,

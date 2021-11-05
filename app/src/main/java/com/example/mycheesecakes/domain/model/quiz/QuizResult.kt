@@ -4,6 +4,7 @@ import java.util.*
 
 data class QuizResult(
     val score: Score,
-    val date: Date
+    val date: Long,
+    val id: Int? = null
 ) {
 }

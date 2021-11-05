@@ -76,6 +76,7 @@ class FlashcardsFragment() : Fragment(), AdapterClickListener {
                 ).toInt()
             )
         )
+        val onScrollListener = FlashcardsOnScrollListener()
     }
 
     // Used to set a given space in pixels around the CardViews
@@ -95,6 +96,16 @@ class FlashcardsFragment() : Fragment(), AdapterClickListener {
                 right = spaceHeight
                 bottom = spaceHeight
             }
+        }
+    }
+
+    private class FlashcardsOnScrollListener(): RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+        }
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
         }
     }
 

@@ -1,7 +1,5 @@
 package com.example.mycheesecakes.domain.model.quiz.menuItems
 
-import com.example.mycheesecakes.domain.model.Cheesecake
-
 class QuizCheesecakeMenuItem(
     override val name: String,
     override val imageURL: String,
@@ -16,14 +14,14 @@ class QuizCheesecakeMenuItem(
     /**
      * The map of questions to answers for this quiz item.
      */
-    override val propertyMap: HashMap<String, String> = hashMapOf()
+    override val questionMap: HashMap<String, String> = hashMapOf()
 
     init {
         createPropertyMap()
     }
 
     override fun createPropertyMap() {
-        propertyMap.apply {
+        questionMap.apply {
             put("Cheesecake",cheesecake)
             put("Crust",crust)
             put("Nuts",nuts)

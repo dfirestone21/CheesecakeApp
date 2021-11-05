@@ -11,7 +11,7 @@ abstract class QuizMenuItem(
     /**
      * The map of questions to answers for this quiz item.
      */
-    abstract val propertyMap: HashMap<String,String>
+    abstract val questionMap: HashMap<String,String>
 
     abstract fun createPropertyMap()
 }

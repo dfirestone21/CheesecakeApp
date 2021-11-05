@@ -2,10 +2,15 @@ package com.example.mycheesecakes.data.di
 
 import com.example.mycheesecakes.data.network.api.AirtableApi
 import com.example.mycheesecakes.data.network.api.ApiConstants
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+@Module
+@InstallIn(SingletonComponent::class)
 object ApiModule {
 
     fun provideApi(builder: Retrofit.Builder): AirtableApi {

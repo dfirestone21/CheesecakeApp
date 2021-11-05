@@ -12,7 +12,10 @@ import com.example.mycheesecakes.domain.model.menuitems.MenuItem
 const val TAG = "FlashcardsAdapter"
 
 
-class FlashcardsRecyclerAdapter(private val menuItems: List<MenuItem>, private val clickListener: AdapterClickListener) : RecyclerView.Adapter<FlashcardsRecyclerAdapter.ViewHolder>() {
+class FlashcardsRecyclerAdapter(
+    private val menuItems: List<MenuItem>,
+    private val clickListener: AdapterClickListener
+    ) : RecyclerView.Adapter<FlashcardsRecyclerAdapter.ViewHolder>() {
 
     private lateinit var binding: FlashcardsListItemBinding
 

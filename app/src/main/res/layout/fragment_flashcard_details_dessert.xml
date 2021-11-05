@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        android:paddingBottom="36dp">
 
         <TextView
             android:id="@+id/details_dessert_whip_property_textview"
@@ -18,12 +19,12 @@
             android:layout_height="wrap_content"
             android:textColor="@color/list_text"
             android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/details_dessert_fudge_property_textview"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/details_dessert_fudge_property_textview"
             app:layout_constraintTop_toBottomOf="@+id/details_dessert_fudge_property_textview"
-            tools:text="whip property"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            tools:text="whip property" />
 
         <TextView
             android:id="@+id/details_dessert_whip_textview"
@@ -124,13 +125,13 @@
             android:layout_marginStart="40dp"
             android:layout_marginEnd="8dp"
             android:gravity="center_horizontal"
+            android:text="Dishes:"
             android:textColor="@color/list_text"
             android:textSize="20sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/details_dessert_dishes_textview_property"
             app:layout_constraintEnd_toStartOf="@+id/details_dessert_dishes_textview_property"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="Dishes:" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/details_dessert_dishes_textview_property"

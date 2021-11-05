@@ -77,17 +77,17 @@ class FlashcardsSetupAdapter(private val desserts: List<MenuItem>) : RecyclerVie
             when (menuItem) {
                 is Cheesecake -> {
                     val action = FlashcardsSetupFragmentDirections.actionFlashcardsSetupFragmentToFlashcardsFragment(
-                        MENU_ITEM_CHEESECAKE)
+                        MenuItem.TYPE_CHEESECAKE)
                     findNavController(itemView).navigate(action)
                 }
                 is Dessert -> {
                     val action = FlashcardsSetupFragmentDirections.actionFlashcardsSetupFragmentToFlashcardsFragment(
-                        MENU_ITEM_DESSERT)
+                        MenuItem.TYPE_DESSERT)
                     findNavController(itemView).navigate(action)
                 }
                 is Drink -> {
                     val action = FlashcardsSetupFragmentDirections.actionFlashcardsSetupFragmentToFlashcardsFragment(
-                        MENU_ITEM_DRINK)
+                        MenuItem.TYPE_DRINK)
                     findNavController(itemView).navigate(action)
                 }
                 else -> throw IllegalArgumentException("Invalid argument")

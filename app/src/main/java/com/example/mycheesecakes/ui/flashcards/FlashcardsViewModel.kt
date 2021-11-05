@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mycheesecakes.data.network.RetrofitInstance
-import com.example.mycheesecakes.data.network.api.model.ApiDrinkList
 import com.example.mycheesecakes.data.network.api.model.mappers.*
 import com.example.mycheesecakes.domain.model.Category
 import com.example.mycheesecakes.domain.model.Cheesecake
@@ -14,7 +13,6 @@ import com.example.mycheesecakes.domain.model.Nuts
 import com.example.mycheesecakes.domain.model.menuitems.*
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import retrofit2.Response
 import java.io.IOException
 import java.lang.IllegalArgumentException
 
@@ -22,9 +20,7 @@ import java.lang.IllegalArgumentException
 class FlashcardsViewModel(var menuItemType: Int) : ViewModel() {
     val TAG = "FlashcardsViewModel"
 
-    //TODO avoid instantiating dependencies like this, Use Dependency Injection in the constructor instead
-    private val menuItemProvider = MenuItemProviderFactory.getProvider(menuItemType)
-
+    
     // The list of all menuItems of a given category
     private val _menuItemsLiveData = MutableLiveData<List<MenuItem>>()
     val menuItemsLiveData: LiveData<List<MenuItem>>
@@ -36,27 +32,14 @@ class FlashcardsViewModel(var menuItemType: Int) : ViewModel() {
     get() = _menuItemLiveData
 
     init {
-        Log.i("TAG","init called")
-        _menuItemLiveData.value = Cheesecake(
-            "30th Anniversary Chocolate Cake",
-            "Original cheesecake",
-            "Creamy chocolate fudge cake",
-            Nuts.NONE                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ,
-            "One",
-            "Chocolate cream, crunchy pearls of chocolate",
-            "Whip",
-            setOf(Category.CHOCOLATE, Category.CAKE),
-            "https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_30thChocolateAnnivCheesecake.jpg"
-        )
-        Log.i(TAG,"menuItemLiveData created: ${menuItemLiveData.value?.name}")
         getMenuItems(menuItemType)
     }
 
     private fun getMenuItems(menuItemType: Int) {
         when (menuItemType) {
-            MENU_ITEM_CHEESECAKE -> getCheesecakes()
-            MENU_ITEM_DESSERT -> getDesserts()
-            MENU_ITEM_DRINK -> getDrinks()
+            MenuItem.TYPE_CHEESECAKE -> getCheesecakes()
+            MenuItem.TYPE_DESSERT -> getDesserts()
+            MenuItem.TYPE_DRINK -> getDrinks()
             else -> throw IllegalArgumentException("Invalid menuItem type")
         }
     }

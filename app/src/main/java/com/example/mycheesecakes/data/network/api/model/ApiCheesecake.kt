@@ -31,6 +31,8 @@ data class ApiCheesecake(
         val presentation: String?,
         @SerializedName("topping")
         val topping: String?,
+        @SerializedName("id")
+        val id: String?
         //@SerializedName("Nutrition")
         //val nutritionID: String?
     )

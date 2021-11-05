@@ -1,358 +1,219 @@
 package com.example.mycheesecakes.ui.quiz
 
-import android.os.CountDownTimer
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mycheesecakes.domain.model.Category
+import com.example.mycheesecakes.data.network.RetrofitInstance
+import com.example.mycheesecakes.data.network.api.model.mappers.*
 import com.example.mycheesecakes.domain.model.Cheesecake
-import com.example.mycheesecakes.domain.model.allCheesecakeList
-import kotlinx.coroutines.Dispatchers
+import com.example.mycheesecakes.domain.model.Quiz
+import com.example.mycheesecakes.domain.model.menuitems.Dessert
+import com.example.mycheesecakes.domain.model.menuitems.Drink
+import com.example.mycheesecakes.domain.model.menuitems.MenuItem
+import com.example.mycheesecakes.domain.model.quiz.Question
+import com.example.mycheesecakes.domain.model.quiz.QuizProvider
+import com.example.mycheesecakes.domain.model.quiz.QuizResult
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.io.IOException
+import java.lang.IllegalArgumentException
+
 const val TAG = "QuizViewModel"
 
-class QuizViewModel(private val cheesecakeType: Int) : ViewModel() {
+class QuizViewModel(menuItemType: Int) : ViewModel() {
 
-    // List of cheesecakes for quiz, chosen based on cheesecakeType parameter
-    private lateinit var cheesecakeList: List<Cheesecake>
-
-    // Cheesecake used for current quiz question
-    private val _cheesecakeLiveData = MutableLiveData<Cheesecake>()
-    val cheesecakeLiveData: LiveData<Cheesecake>
-        get() = _cheesecakeLiveData
+    private lateinit var quiz: Quiz
+    private var question: Question? = null
 
     // Current question
-    private val _questionLiveData = MutableLiveData<String>()
-    val questionLiveData: LiveData<String>
+    private val _questionLiveData = MutableLiveData<Question>()
+    val questionLiveData: LiveData<Question>
         get() = _questionLiveData
 
-    // List of current answer choices
-    private val _answersLiveData = MutableLiveData<List<String>>()
-    val answersLiveData: LiveData<List<String>>
-        get() = _answersLiveData
+    private val _timeRemaining = MutableLiveData<Int>()
+    val timeRemaining: LiveData<Int>
+    get() = _timeRemaining
 
-    // Current correct answer
-    private val _correctAnswerLiveData = MutableLiveData<Boolean?>()
-    val correctAnswerLiveData: LiveData<Boolean?>
-        get() = _correctAnswerLiveData
+    private var quizIsStarted = false
 
-    // 30 second timer for each question
-    private val _questionTimerLiveData = MutableLiveData<Int>()
-    val questionTimerLiveData: LiveData<Int>
-        get() = _questionTimerLiveData
+    init {
+        val menuItems = getMenuItems(menuItemType)
+        Log.i(TAG,menuItems.toString())
 
-    private inner class QuestionTimer(var totalTime: Long = 30000, tickTime: Long = 1000) : CountDownTimer(totalTime, tickTime) {
-        //var timeRemaining: Long = totalTime
+    }
 
-        override fun onTick(millisUntilFinished: Long) {
-            totalTime = millisUntilFinished
-            _questionTimerLiveData.value = (millisUntilFinished/1000).toInt()
-        }
-
-        override fun onFinish() {
-            onTimeExpired()
+    private fun getMenuItems(menuItemType: Int): List<MenuItem> {
+        return when (menuItemType) {
+            MenuItem.TYPE_CHEESECAKE -> getCheesecakes()
+            MenuItem.TYPE_DESSERT -> getDesserts()
+            MenuItem.TYPE_DRINK -> getDrinks()
+            else -> throw IllegalArgumentException("Invalid menuItemType")
         }
     }
 
-    var correctAnswer = ""
-
-    private val questions = HashMap<String,List<String>>()
-
-    private var cheesecakeQuestions = mutableListOf<String>()
-
-    private val answerCategories = listOf("Cheesecake","Crust","Nuts","Dollops","Topping","Presentation")
-
-    private var questionIndex = 0
-
-    private var questionTimer: QuestionTimer? = null
-
-    var cheesecake: Cheesecake? = null
-
-    init {
-        _correctAnswerLiveData.value = null
-
-        getCheesecakes()
-
-        for (item in answerCategories) {
-            viewModelScope.launch { generateQuestions(item) }
-        }
-
+    private fun setupQuiz(menuItems: List<MenuItem>) {
+        quiz = QuizProvider().createQuiz(menuItems,QuizProvider.QUIZ_SIZE_LARGE)
+        quizIsStarted = true
         nextQuestion()
     }
 
-    private fun getChocolateCheesecakes(): List<Cheesecake> {
-        Log.i(TAG,"getChocolateCheesecakes called")
-        val chocolateCheesecakes = mutableListOf<Cheesecake>()
-        allCheesecakeList.forEach {
-            if (it.categories.contains(Category.CHOCOLATE)) {
-                chocolateCheesecakes.add(it)
-            }
-        }
-        chocolateCheesecakes.shuffle()
-        return chocolateCheesecakes
-    }
-
-    private fun getFruitCheesecakes(): List<Cheesecake> {
-        Log.i(TAG,"getFruitCheesecakes called")
-        val fruitCheesecakes = mutableListOf<Cheesecake>()
-
-        allCheesecakeList.forEach {
-            if (it.categories.contains(Category.FRUIT)) {
-                fruitCheesecakes.add(it)
-            }
-        }
-        fruitCheesecakes.shuffle()
-        return fruitCheesecakes
-    }
-
-    private fun getOtherCheesecakes(): List<Cheesecake> {
-        Log.i(TAG,"getOtherCheesecakes called")
-        val otherCheesecakes = mutableListOf<Cheesecake>()
-
-        allCheesecakeList.forEach {
-            if (!it.categories.contains(Category.CHOCOLATE) &&
-                    !it.categories.contains(Category.FRUIT)) {
-                otherCheesecakes.add(it)
-            }
-        }
-        otherCheesecakes.shuffle()
-
-
-        return otherCheesecakes
-    }
-
-    private fun getPresentationList(): List<Cheesecake> {
-        val presentationList = mutableListOf<Cheesecake>()
-
-        allCheesecakeList.forEach {
-            if (it.presentation != "Whip") {
-                presentationList.add(it)
-            }
-        }
-
-        presentationList.shuffle()
-        return presentationList
-    }
-
-    private fun getCheesecakes() {
-        Log.i(TAG,"getCheesecakes called")
-        cheesecakeList = when (cheesecakeType) {
-            0 -> {
-                getChocolateCheesecakes()
-            }
-            1 -> {
-                getFruitCheesecakes()
-            }
-            2 -> {
-                getOtherCheesecakes()
-            }
-            else -> getPresentationList()
-        }
-    }
-
     private fun nextQuestion() {
-        Log.i(TAG,"nextQuestion called")
-        var question = getNewQuestion()
+        question = quiz.getNextQuestion()
         if (question == null) {
-            cheesecake = getNewCheesecake(questionIndex++) ?: return
-            question = getNewQuestion()
+            onQuizComplete()
+        } else {
+            question?.let {
+                _questionLiveData.value = it
+                observeTimer()
+            }
         }
-
-
-        correctAnswer = getCorrectAnswer(question!!, cheesecake!!)
-        val answerList = getAnswerList(question)
-        _questionLiveData.value = question!!
-        _answersLiveData.value = answerList
-        _correctAnswerLiveData.value = null
-        setupTimer()
-
     }
 
     fun onQuestionAnswered(answer: String) {
-        Log.i(TAG,"onQuestionAnswered called")
-        questionTimer?.cancel()
-        checkIfCorrect(answer)
+        quiz.onQuestionAnswered(answer)
         nextQuestion()
     }
 
     private fun onTimeExpired() {
-        Log.i(TAG,"onTimeExpired called")
-        onQuestionAnswered("Incorrect")
-    }
-
-    private fun checkIfCorrect(answer: String): Boolean {
-        Log.i(TAG,"checkIfCorrect called")
-        return if (answer == correctAnswer) {
-            _correctAnswerLiveData.value = true
-            true
-        } else {
-            _correctAnswerLiveData.value = false
-            false
-        }
-    }
-
-    private suspend fun generateQuestions(question: String) {
-        Log.i(TAG,"generateQuestions called")
-        withContext(Dispatchers.IO) {
-            val answers = mutableListOf<String>()
-
-            when (question) {
-                "Cheesecake" -> {
-                    cheesecakeList.forEach {
-                        if (!answers.contains(it.cheesecake)) {
-                            answers.add(it.cheesecake)
-                        }
-                    }
-                    questions[question] = answers
-                }
-                "Crust" -> {
-                    cheesecakeList.forEach {
-                        if (!answers.contains(it.crust)) {
-                            answers.add(it.crust)
-                        }
-                    }
-                    questions[question] = answers
-                }
-                "Nuts" -> {
-                    cheesecakeList.forEach {
-                        if (!answers.contains(it.nuts)) {
-                            answers.add(it.nuts.toString())
-                        }
-                    }
-                    answers.apply {
-                        add("Almonds")
-                        add("Pistachio")
-                    }
-                    questions[question] = answers
-                }
-                "Dollops" -> {
-                    cheesecakeList.forEach {
-                        if (!answers.contains(it.dollops)) {
-                            answers.add(it.dollops)
-                        }
-                    }
-                    answers.add("None")
-                    answers.add("Three")
-                    questions[question] = answers
-                }
-                "Topping" -> {
-                    cheesecakeList.forEach {
-                        if (!answers.contains(it.topping)) {
-                            answers.add(it.topping)
-                        }
-                    }
-                    questions[question] = answers
-                }
-                "Presentation" -> {
-                    cheesecakeList.forEach {
-                        if (!answers.contains(it.presentation)) {
-                            answers.add(it.presentation)
-                        }
-                    }
-                    questions[question] = answers
-                }
-            }
-
-        }
-    }
-
-    private fun getCorrectAnswer(category: String, cheesecake: Cheesecake): String {
-        Log.i(TAG,"getCorrectAnswer called")
-        return when (category) {
-            "Cheesecake" -> cheesecake.cheesecake
-            "Crust" -> cheesecake.crust
-            "Nuts" -> cheesecake.nuts.toString()
-            "Dollops" -> cheesecake.dollops
-            "Topping" -> cheesecake.topping
-            "Presentation" -> cheesecake.presentation
-            else -> "Error"
-        }
-    }
-
-    private fun getNewCheesecake(index: Int): Cheesecake? {
-        Log.i(TAG,"getNewCheesecake called")
-        if (index > cheesecakeList.lastIndex) {
-            onQuizComplete()
-            return null
-        }
-
-        // New list to be used as a queue, where each question is dequeued after being asked
-        cheesecakeQuestions = answerCategories.toMutableList()
-        cheesecakeQuestions.shuffle()
-
-        val cheesecake = cheesecakeList[index]
-        _cheesecakeLiveData.value = cheesecake
-        return cheesecake
-
-    }
-
-    private fun getNewQuestion(): String? {
-        Log.i(TAG,"getNewQuestion called")
-        return if (cheesecakeQuestions.isEmpty()) {
-            null
-        } else cheesecakeQuestions.removeFirst()
-    }
-
-    private fun getAnswerList(question: String): List<String> {
-        Log.i(TAG,"getAnswerList called")
-        val answerList = mutableListOf<String>()
-        answerList.add(correctAnswer)
-
-        while (answerList.size < 4) {
-            val answer = questions[question]!!.random()
-            if (!answerList.contains(answer)) {
-                answerList.add(answer)
-                Log.i(TAG, "$answer added to answerList")
-                Log.i(TAG,"answerList: $answerList")
-            }
-        }
-        answerList.shuffle()
-        return answerList
-    }
-
-    private fun setupTimer(timeRemaining: Long = 30000) {
-        Log.i(TAG,"setupTimer called")
-        questionTimer?.cancel()
-        questionTimer = QuestionTimer(totalTime = timeRemaining)
-        questionTimer?.start()
+        quiz.timeExpired()
+        nextQuestion()
     }
 
     private fun onQuizComplete() {
-        Log.i(TAG,"onQuizComplete called")
-
+        val quizResult = quiz.quizComplete()
+        postQuizResult(quizResult)
     }
 
     fun fragmentOnPauseCalled() {
-        Log.i(TAG,"fragmentOnPauseCalled")
-        questionTimer?.cancel()
+        quiz.pauseQuiz()
     }
 
     fun fragmentOnResumeCalled() {
-        Log.i(TAG,"fragmentOnResume called")
-        questionTimer?.totalTime?.let { setupTimer(it) }
+        if (quizIsStarted) {
+            quiz.resumeQuiz()
+        }
+    }
+
+    fun fragmentOnStopCalled() {
+        //TODO cache quiz
+    }
+
+    private fun observeTimer() {
+        viewModelScope.launch {
+            quiz.timer.timeFlow.collect { it
+                _timeRemaining.value = it
+                if (it == 0) {
+                    onTimeExpired()
+                }
+            }
+        }
     }
 
 
 
     override fun onCleared() {
-        Log.i(TAG,"onCleared called")
         super.onCleared()
         viewModelScope.cancel()
+        quiz.quizComplete()
+    }
+
+    private fun getCheesecakes(): List<Cheesecake> {
+        var cheesecakeList = listOf<Cheesecake>()
+        viewModelScope.launch {
+            val response = try {
+                RetrofitInstance.airtableApi.getAllCheesecakes()
+            } catch (e: IOException) {
+                Log.e(TAG, "IOException")
+                return@launch
+            } catch (e: HttpException) {
+                Log.e(TAG, "HttpException")
+                return@launch
+            }
+
+            if (response.isSuccessful && response.body() != null) {
+                val apiCheesecakesList = response.body()
+                apiCheesecakesList?.cheesecakes?.let { cheesecakes ->
+                   cheesecakeList = ListMapperImpl(ApiCheesecakeMapper()).mapToDomain(cheesecakes)
+                    Log.i(TAG,cheesecakeList.toString())
+                    setupQuiz(cheesecakeList) //TODO fix this, this call shouldn't happen here. Figure out waiting for coroutine to finish or something
+                }
+            }
+        }
+        return cheesecakeList
+    }
+
+    private fun getDesserts(): List<Dessert> {
+        var dessertList = listOf<Dessert>()
+        viewModelScope.launch() {
+            val response = try {
+                RetrofitInstance.airtableApi.getAllDesserts()
+            } catch (e: IOException) {
+                Log.e(TAG, "IOException")
+                return@launch
+            } catch (e: HttpException) {
+                Log.e(TAG, "HttpException")
+                return@launch
+            }
+
+            if (response.isSuccessful && response.body() != null) {
+                val apiDessertList = response.body()
+                apiDessertList?.desserts?.let { desserts ->
+                    dessertList = ListMapperImpl(ApiDessertMapper()).mapToDomain(desserts)
+                    setupQuiz(dessertList) //TODO Fix this, don't call it here.
+                }
+            }
+        }
+        return dessertList
+    }
+
+    private fun getDrinks(): List<Drink> {
+        var drinkList = listOf<Drink>()
+        viewModelScope.launch {
+            val response = try {
+                RetrofitInstance.airtableApi.getAllDrinks()
+            } catch (e: IOException) {
+                Log.e(TAG,"IOException")
+                return@launch
+            } catch (e: HttpException) {
+                Log.e(TAG,"HttpException")
+                return@launch
+            }
+            if (response.isSuccessful && response.body() != null) {
+                val apiDrinkList = response.body()
+                apiDrinkList?.drinks?.let { drinks ->
+                   drinkList = ListMapperImpl(ApiDrinkMapper()).mapToDomain(drinks)
+                }
+            }
+        }
+        return drinkList
+    }
+
+    private fun postQuizResult(quizResult: QuizResult) {
+        val apiQuizResult = QuizResultToApiQuizResultMapper().mapToDomain(quizResult)
+        viewModelScope.launch {
+            val response = try {
+                RetrofitInstance.airtableApi.postQuizResult(apiQuizResult)
+            } catch (e: IOException) {
+                Log.e(TAG, "IOException")
+                return@launch
+            } catch (e: HttpException) {
+                Log.e(TAG, "HttpException")
+                return@launch
+            }
+        }
     }
 }
 
-//TODO GameController
-//TODO retrieve cheesecake list with coroutines
 //TODO store all the cheesecakes, questions and answers in Room
 //TODO COMMENTS!
-//TODO finish button, and review showing what questions you got wrong
 //TODO reminder notifications
 //TODO share results on social media option
 //TODO if you get it wrong, allow yourself to keep trying but gray/red the incorrectly chosen answer
-//TODO have the viewmodel as generic as possible so you can have different topics like drinks
 
 
