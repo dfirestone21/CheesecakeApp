@@ -22,12 +22,12 @@ class ApiCheesecakeMapper() : ApiMapper<ApiCheesecake,Cheesecake> {
         )
     }
 
-    fun parseNuts(nuts: String?): Nuts {
+    private fun parseNuts(nuts: String?): Nuts {
         if (nuts.isNullOrEmpty()) return Nuts.NONE
         return Nuts.valueOf(nuts.toUpperCase(Locale.ROOT))
     }
 
-    fun parseCategories(categories: List<String>?): List<Category> {
+    private fun parseCategories(categories: List<String>?): List<Category> {
         if (categories.isNullOrEmpty()) return emptyList()
 
         val mappedCategories: MutableList<Category> = mutableListOf()
