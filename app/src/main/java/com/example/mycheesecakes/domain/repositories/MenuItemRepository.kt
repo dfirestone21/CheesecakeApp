@@ -5,34 +5,24 @@ import com.example.mycheesecakes.data.network.RetrofitInstance
 import com.example.mycheesecakes.data.network.api.model.mappers.ApiCheesecakeMapper
 import com.example.mycheesecakes.data.network.api.model.mappers.ListMapperImpl
 import com.example.mycheesecakes.domain.model.Cheesecake
+import com.example.mycheesecakes.domain.model.menuitems.Dessert
+import com.example.mycheesecakes.domain.model.menuitems.Drink
 import retrofit2.HttpException
 import java.io.IOException
 
 interface MenuItemRepository {
 
-    suspend fun getAllCheesecakes(): List<Cheesecake>? {
-        val response = try {
-            RetrofitInstance.airtableApi.getAllCheesecakes()
-        } catch (e: IOException) {
-            Log.e("MenuItemRepository", "IOException")
-            return null
-        } catch (e: HttpException) {
-            Log.e("MenuItemRepository", "HttpException")
-            return null
-        }
+    suspend fun getAllCheesecakes(): List<Cheesecake>?
 
-        if (response.isSuccessful && response.body() != null) {
-            val apiCheesecakes = response.body()
-            val cheesecakes = apiCheesecakes?.cheesecakes?.let {
-                ListMapperImpl(ApiCheesecakeMapper()).mapToDomain(
-                    it
-                )
-            }
-            return cheesecakes
-        } else {
-            return null
-        }
-    }
+    suspend fun getAllDesserts(): List<Dessert>?
 
+    suspend fun getAllDrinks(): List<Drink>?
 
+    suspend fun getCheesecake(id: String): Cheesecake?
+
+    suspend fun getDessert(id: String): Dessert?
+
+    suspend fun getDrink(id: String): Drink?
+
+    suspend fun getCheesecakesByCategory(category: String): List<Cheesecake>?
 }
