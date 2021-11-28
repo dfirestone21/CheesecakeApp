@@ -18,6 +18,8 @@ data class ApiQuizResult(
         @SerializedName("id")
         val id: Int? = null,
         @SerializedName("incorrect")
-        val incorrect: Int?
+        val incorrect: Int?,
+        @SerializedName("quiz_id")
+        val quizId: Int?
     )
 }
