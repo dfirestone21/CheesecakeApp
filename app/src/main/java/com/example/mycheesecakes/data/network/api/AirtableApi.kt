@@ -24,14 +24,29 @@ interface AirtableApi {
 
     @GET("${ApiConstants.CHEESECAKES_ENDPOINT}/{id}")
     suspend fun getCheesecake(
-        @Query(ApiParameters.API_KEY) apiKey: String = ApiConstants.API_KEY,
-        @Path("id") id: String
+        @Path("id") id: String,
+        @Query(ApiParameters.API_KEY) apiKey: String = ApiConstants.API_KEY
+
     ): Response<ApiCheesecake>
+
+    @GET("${ApiConstants.DESSERTS_ENDPOINT}/{id}")
+    suspend fun getDessert(
+        @Path("id") id: String,
+        @Query(ApiParameters.API_KEY) apiKey: String = ApiConstants.API_KEY
+
+    ): Response<ApiDessert>
+
+    @GET("${ApiConstants.DRINKS_ENDPOINT}/{id}")
+    suspend fun getDrink(
+        @Path("id") id: String,
+        @Query(ApiParameters.API_KEY) apiKey: String = ApiConstants.API_KEY
+
+    ): Response<ApiDrink>
 
     @GET(ApiConstants.CHEESECAKES_ENDPOINT)
     suspend fun getCheesecakesByCategory(
-        @Query(ApiParameters.API_KEY) apiKey: String = ApiConstants.API_KEY,
-        @Query(ApiParameters.CHEESECAKE_CATEGORIES) categories: String
+        @Query(ApiParameters.CHEESECAKE_CATEGORIES) categories: String,
+        @Query(ApiParameters.API_KEY) apiKey: String = ApiConstants.API_KEY
     ): Response<ApiCheesecakesList>
 
     @GET(ApiConstants.DESSERTS_ENDPOINT)
@@ -45,7 +60,7 @@ interface AirtableApi {
     ): Response<ApiDrinkList>
 
     @GET("{menuItemType}/{fields}")
-    suspend fun getAnswers(
+    suspend fun getQuestionAnswers(
         @Path("menuItemType") menuItemType: String,
         @Path("fields") questions: List<String>,
         @Query(ApiParameters.API_KEY) apiKey: String = ApiConstants.API_KEY,
@@ -56,7 +71,7 @@ interface AirtableApi {
     suspend fun postQuizResult(
         @Body quizResult: ApiQuizResult,
         @Query(ApiParameters.API_KEY) apiKey: String = ApiConstants.API_KEY
-    )
+    ): Response<ApiQuizResult>
 
 
 }

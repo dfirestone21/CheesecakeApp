@@ -10,6 +10,3 @@ abstract class ApiParameters {
         const val CHEESECAKE_CATEGORIES = "categories"
     }
 }
-
-//sort%5B0%5D%5Bfield%5D
-//sort%5B0%5D%5Bdirection%5D
