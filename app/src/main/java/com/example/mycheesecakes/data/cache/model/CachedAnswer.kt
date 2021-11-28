@@ -6,12 +6,10 @@ import androidx.room.PrimaryKey
 import com.example.mycheesecakes.domain.model.quiz.Question
 
 @Entity(
-    tableName = "quiz_answers",
-    indices = [Index("question")]
+    tableName = "questions_and_answers",
+    primaryKeys = ["question", "answer"]
 )
-data class QuestionsAnswersEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val question: String?,
-    val answer: String?
+data class CachedAnswer(
+    val question: String,
+    val answer: String
 )

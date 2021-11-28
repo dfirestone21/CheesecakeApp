@@ -6,9 +6,11 @@ import androidx.room.PrimaryKey
 import com.example.mycheesecakes.domain.model.quiz.Question
 
 @Entity
-class QuestionEntity(
+data class CachedQuestion(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
+    @ColumnInfo(name = "quiz_id")
+    val quizId: Int = 0,
     @ColumnInfo(name = "item_name")
     val itemName: String,
     @ColumnInfo(name = "item_image_url")
@@ -21,6 +23,7 @@ class QuestionEntity(
     @ColumnInfo(name = "is_correct")
     var isCorrect: Boolean = false
 ) {
+
     fun toDomain(): Question {
         return Question(
             itemName = itemName,
@@ -32,8 +35,8 @@ class QuestionEntity(
     }
 
     companion object {
-        fun fromDomain(question: Question): QuestionEntity {
-            return QuestionEntity(
+        fun fromDomain(question: Question): CachedQuestion {
+            return CachedQuestion(
                 itemName = question.itemName,
                 itemImageURL = question.itemImageURL,
                 question = question.question,
