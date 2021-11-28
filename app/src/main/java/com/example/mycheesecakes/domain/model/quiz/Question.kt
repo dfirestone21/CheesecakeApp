@@ -17,6 +17,6 @@ data class Question(
     val correctAnswer: String
 ) {
     var answer = ""
-    var isCorrect: Boolean = false
+    val isCorrect
     get() = answer == correctAnswer
 }
