@@ -37,6 +37,7 @@ data class CachedQuestion(
     companion object {
         fun fromDomain(question: Question): CachedQuestion {
             return CachedQuestion(
+                id = question.id,
                 itemName = question.itemName,
                 itemImageURL = question.itemImageURL,
                 question = question.question,

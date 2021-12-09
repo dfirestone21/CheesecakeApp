@@ -10,6 +10,7 @@ abstract class MenuItem(
     open val id: String? = null,
     open val name: String,
     open val imageURL: String,
+    //open val categories: List<Category> = listOf(), // Will be used for category feature.
     open var nutrition: Nutrition? = null
 ){
 

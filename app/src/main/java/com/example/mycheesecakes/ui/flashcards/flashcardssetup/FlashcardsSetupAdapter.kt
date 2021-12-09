@@ -16,12 +16,12 @@ import java.lang.IllegalArgumentException
 class FlashcardsSetupAdapter(private val desserts: List<MenuItem>) : RecyclerView.Adapter<FlashcardsSetupAdapter.ViewHolder>() {
     private lateinit var binding: FlashcardsSetupListItemBinding
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlashcardsSetupAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = FlashcardsSetupListItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: FlashcardsSetupAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(desserts[position])
     }
 

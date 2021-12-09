@@ -4,10 +4,12 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.viewModelScope
+import com.example.mycheesecakes.app.App
 import com.example.mycheesecakes.data.network.RetrofitInstance
 import com.example.mycheesecakes.data.network.api.ApiConstants
 import com.example.mycheesecakes.data.network.api.model.mappers.ApiCheesecakeMapper
 import com.example.mycheesecakes.data.network.api.model.mappers.ListMapperImpl
+import com.example.mycheesecakes.data.repositories.QuizRepository
 import com.example.mycheesecakes.domain.model.Quiz
 import com.example.mycheesecakes.domain.model.menuitems.MenuItem
 import com.example.mycheesecakes.domain.model.quiz.menuItems.QuizMenuItem
@@ -22,14 +24,17 @@ import java.io.IOException
 //TODO pass in menuItem type and amount, and retrieve them here.
 // That way you only get as many as you need
 
-class QuizProvider {
+class QuizProvider(
+    quizRepository: QuizRepository = App.quizRepository
+) {
 
     private val TAG = "QuizProvider"
 
     companion object {
-        const val QUIZ_SIZE_SMALL = 10
-        const val QUIZ_SIZE_MEDIUM = 20
-        const val QUIZ_SIZE_LARGE = 30
+        const val QUIZ_SIZE_SMALL = 15
+        const val QUIZ_SIZE_MEDIUM = 30
+        const val QUIZ_SIZE_LARGE = 45
+        const val QUIZ_SIZE_HUGE = 60
     }
 
     //TODO store the questions and answers in Room and retrieve them from there
@@ -43,19 +48,19 @@ class QuizProvider {
      */
     private val quizMenuItems: MutableList<QuizMenuItem> = mutableListOf()
 
-    fun createQuiz(menuItems: List<MenuItem>, quizSize: Int = QUIZ_SIZE_MEDIUM): Quiz {
-        Log.d(TAG,menuItems.toString())
+    fun createQuiz(menuItems: List<MenuItem>, quizSize: Int = QUIZ_SIZE_HUGE): Quiz {
         // Maps MenuItem to QuizMenuItem to access the propertyMap for quiz questions
         val mapper = QuizMenuItemMapper()
         menuItems.forEach {
-            quizMenuItems.add(mapper(it))
+            val quizMenuItem = mapper.map(it)
+            quizMenuItems.add(quizMenuItem)
         }
         quizMenuItems.shuffle()
 
         generateQuestionsAndAnswersMap(quizMenuItems)
 
         val questions = generateQuestions(quizSize)
-        return Quiz(questions)
+        return Quiz(questions = questions)
     }
 
     private fun generateQuestions(quizSize: Int): MutableList<Question> {
@@ -86,7 +91,7 @@ class QuizProvider {
 
 
     private fun generateQuestionsAndAnswersMap(menuItems: List<QuizMenuItem>) {
-        //initialize map
+        // Initialize map
         menuItems.first().questionMap.forEach { (key, _) ->
             questionsToAnswersMap[key] = mutableSetOf()
             if (key == "Dollops") { // Not enough Dollops for multiple choice

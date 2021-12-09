@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.mycheesecakes.databinding.FragmentQuizSetupBinding
 import com.example.mycheesecakes.domain.model.menuitems.MenuItem
-import java.util.*
-
+import com.example.mycheesecakes.domain.model.menuitems.menuItems
 
 class QuizSetupFragment : Fragment(), View.OnClickListener {
 

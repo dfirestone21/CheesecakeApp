@@ -9,7 +9,8 @@ class QuizResultToApiQuizResultMapper: ApiMapper<QuizResult,ApiQuizResult> {
             fields = ApiQuizResult.Fields(
                 correct = apiEntity.score.correct,
                 incorrect = apiEntity.score.incorrect,
-                date = apiEntity.date
+                date = apiEntity.date,
+                quizId = apiEntity.quizId
             )
         )
     }

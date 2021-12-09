@@ -7,9 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mycheesecakes.data.network.RetrofitInstance
 import com.example.mycheesecakes.data.network.api.model.mappers.*
-import com.example.mycheesecakes.domain.model.Category
-import com.example.mycheesecakes.domain.model.Cheesecake
-import com.example.mycheesecakes.domain.model.Nuts
 import com.example.mycheesecakes.domain.model.menuitems.*
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -19,6 +16,10 @@ import java.lang.IllegalArgumentException
 
 class FlashcardsViewModel(var menuItemType: Int) : ViewModel() {
     val TAG = "FlashcardsViewModel"
+    // TODO Have a separate ViewModel for the FlashcardDetails Fragment. This ViewModel will pass the ID
+    // of the clicked MenuItem to the Details ViewModel, and that ViewModel will get the corresponding
+    // MenuItem from the repository. That ViewModel (in the future) will also store and present the
+    // Nutrition data for that MenuItem.
 
     
     // The list of all menuItems of a given category
@@ -101,10 +102,10 @@ class FlashcardsViewModel(var menuItemType: Int) : ViewModel() {
             }
             if (response.isSuccessful && response.body() != null) {
                 val apiDrinkList = response.body()
-                val dessertList = apiDrinkList?.drinks?.let { drinks ->
+                val drinkList = apiDrinkList?.drinks?.let { drinks ->
                     ListMapperImpl(ApiDrinkMapper()).mapToDomain(drinks)
                 }
-                _menuItemsLiveData.value = dessertList ?: return@launch
+                _menuItemsLiveData.value = drinkList ?: return@launch
             }
         }
     }

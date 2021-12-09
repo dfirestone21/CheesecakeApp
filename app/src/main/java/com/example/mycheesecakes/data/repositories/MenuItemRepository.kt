@@ -35,8 +35,8 @@ class MenuItemRepository(
 
         return if (response.isSuccessful && response.body() != null) {
             val apiCheesecakes = response.body()
-            val cheesecakes = apiCheesecakes?.cheesecakes?.let {
-                ListMapperImpl(cheesecakeMapper).mapToDomain(it)
+            val cheesecakes = apiCheesecakes?.cheesecakes?.let { apiCakes ->
+                apiCakes.map { cheesecakeMapper.mapToDomain(it) }
             }
             cheesecakes
         } else {
@@ -56,11 +56,11 @@ class MenuItemRepository(
         }
 
         return if (response.isSuccessful && response.body() != null) {
-            val apiDessertList = response.body()
-            val dessertList = apiDessertList?.desserts?.let {
-                ListMapperImpl(dessertMapper).mapToDomain(it)
+            val apiDesserts = response.body()
+            val desserts = apiDesserts?.desserts?.let { list ->
+                list.map { dessertMapper.mapToDomain(it) }
             }
-            dessertList
+            desserts
         } else {
             null
         }

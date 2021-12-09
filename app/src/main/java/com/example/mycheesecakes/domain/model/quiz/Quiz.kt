@@ -1,21 +1,16 @@
 package com.example.mycheesecakes.domain.model
 
-import android.os.CountDownTimer
-import android.util.Log
-import androidx.lifecycle.viewModelScope
-import com.example.mycheesecakes.data.network.RetrofitInstance
-import com.example.mycheesecakes.data.network.api.model.mappers.ApiCheesecakeMapper
-import com.example.mycheesecakes.data.network.api.model.mappers.ListMapperImpl
+import com.example.mycheesecakes.data.cache.model.CachedQuestion
+import com.example.mycheesecakes.data.cache.model.CachedQuiz
+import com.example.mycheesecakes.data.cache.model.CachedQuizAggregate
+import com.example.mycheesecakes.data.cache.model.CachedQuizResult
 import com.example.mycheesecakes.domain.model.quiz.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import java.io.IOException
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import java.util.*
 
-class Quiz(
+data class Quiz(
+    private val id: Int = 0,
     private val questions: List<Question>,
     private var questionIndex: Int = 0
 ){
@@ -24,13 +19,18 @@ class Quiz(
     private var currentQuestion: Question = questions[questionIndex]
     val size: Int
         get() = questions.size
-    private lateinit var quizResult: QuizResult
+    private var quizResult: QuizResult? = null
     lateinit var timer: QuizTimer
+    private var isComplete: Boolean = questionIndex == questions.lastIndex
+
+    /**
+     * Used for restarting the timer with previous time.
+     */
     private var timeRemainingOnPause: Long = 0
 
 
     fun getNextQuestion(): Question? {
-        if (questionIndex < 0 || questionIndex > questions.lastIndex) {
+        if (isComplete || questionIndex < 0 || questionIndex > questions.lastIndex) {
             return null
         }
         currentQuestion = questions[questionIndex]
@@ -50,6 +50,14 @@ class Quiz(
         }
     }
 
+    fun answerResponse(): String =
+        if (currentQuestion.isCorrect) {
+            "Correct!"
+        } else {
+            "Incorrect: ${currentQuestion.correctAnswer}"
+        }
+
+
     fun timeExpired() {
         timer.cancel()
         onQuestionAnswered(currentQuestion.answer)
@@ -57,8 +65,9 @@ class Quiz(
 
     fun quizComplete(): QuizResult {
         timer.cancel()
+        isComplete = true
         quizResult = getQuizResult()
-        return quizResult
+        return quizResult!!
     }
 
     fun pauseQuiz() {
@@ -72,9 +81,24 @@ class Quiz(
         timer.start()
     }
 
+    fun getCachedQuizAggregate(): CachedQuizAggregate {
+        return CachedQuizAggregate(
+            quiz = CachedQuiz(
+                questionIndex = questionIndex,
+                correct = correct,
+                incorrect = incorrect,
+                isComplete = isComplete
+            ),
+            questions = questions.map { CachedQuestion.fromDomain(it) },
+            quizResult = if (quizResult != null) CachedQuizResult.fromDomain(quizResult!!) else null
+        )
+    }
 
-    private fun getQuizResult() = QuizResult(Score(correct,incorrect), Date().time)
 
+    private fun getQuizResult() = QuizResult(
+        score = Score(correct,incorrect),
+        date = Date().time,
+        quizId = id)
 }
 
 

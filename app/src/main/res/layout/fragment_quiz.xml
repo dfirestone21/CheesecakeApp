@@ -15,7 +15,7 @@
         android:background="@color/main"
         android:gravity="center"
         android:padding="4dp"
-        android:text="@string/question"
+        tools:text="@string/question"
         android:textColor="@color/white"
         android:textSize="@dimen/large_string_size"
         android:layout_marginBottom="@dimen/default_margin"
@@ -32,7 +32,7 @@
         android:background="@color/main"
         android:gravity="center"
         android:padding="4dp"
-        android:text="@string/cheesecake_name"
+        tools:text="@string/cheesecake_name"
         android:textColor="@color/white"
         android:textSize="@dimen/large_string_size"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small_margin"
                 android:padding="@dimen/small_margin"
-                android:text="@string/answer_1"
+                tools:text="@string/answer_1"
                 android:textAllCaps="false"
                 android:textSize="18sp"
                 app:layout_constraintVertical_bias="0.0"
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small_margin"
                 android:padding="@dimen/small_margin"
-                android:text="@string/answer_2"
+                tools:text="@string/answer_2"
                 android:textAllCaps="false"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/answer3_button"
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small_margin"
                 android:padding="@dimen/small_margin"
-                android:text="@string/answer_3"
+                tools:text="@string/answer_3"
                 android:textAllCaps="false"
                 android:textSize="18sp"/>
 
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small_margin"
                 android:padding="@dimen/small_margin"
-                android:text="@string/answer_4"
+                tools:text="@string/answer_4"
                 android:textAllCaps="false"
                 android:textSize="18sp"/>
 

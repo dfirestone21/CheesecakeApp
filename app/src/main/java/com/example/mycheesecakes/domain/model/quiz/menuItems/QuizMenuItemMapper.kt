@@ -11,7 +11,7 @@ class QuizMenuItemMapper {
     /**
      * Maps MenuItems to QuizMenuItems which are used for the Quiz
      */
-    operator fun invoke(menuItem: MenuItem): QuizMenuItem {
+    fun map(menuItem: MenuItem): QuizMenuItem {
         return when (menuItem) {
             is Cheesecake -> {
                 QuizCheesecakeMenuItem(

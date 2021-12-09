@@ -1,5 +1,6 @@
 package com.example.mycheesecakes.data.network.api.model
 
+import com.example.mycheesecakes.domain.model.menuitems.Dessert
 import com.google.gson.annotations.SerializedName
 
 data class ApiDessert(

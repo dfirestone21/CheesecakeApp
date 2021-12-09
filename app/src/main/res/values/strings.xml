@@ -27,4 +27,6 @@
     <string name="nuts_flashcard">Nuts:</string>
     <string name="presentation_flashcard">Presentation:</string>
     <string name="topping_flashcard">Topping:</string>
+    <string name="quiz_complete">Quiz Complete!</string>
+    <string name="slash">/</string>
 </resources>

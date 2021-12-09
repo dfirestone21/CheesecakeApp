@@ -8,7 +8,7 @@ interface AnswerDao {
     @Query("SELECT * FROM questions_and_answers WHERE question =:question AND answer != :correctAnswer ORDER BY RANDOM() LIMIT 3")
     suspend fun getIncorrectAnswersForQuestion(question: String, correctAnswer: String): List<CachedAnswer>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(answers: List<CachedAnswer>)
 
 }
