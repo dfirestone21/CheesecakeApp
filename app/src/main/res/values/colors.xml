@@ -12,4 +12,5 @@
     <color name="velvet">#880D53</color>
     <color name="list_background">#FEFBF7E6</color>
     <color name="list_text">#824D3B</color>
+    <color name="red_incorrect">#CC3337</color>
 </resources>

@@ -13,8 +13,7 @@ import com.example.mycheesecakes.domain.model.menuitems.menuItems
 class FlashcardsSetupFragment : Fragment() {
 
     private lateinit var binding: FragmentFlashcardsSetupBinding
-    private val cheesecakes = menuItems
-    private val adapter = FlashcardsSetupAdapter(cheesecakes)
+    private val adapter = FlashcardsSetupAdapter(menuItems)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

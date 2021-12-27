@@ -9,13 +9,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.viewbinding.ViewBinding
-import com.example.mycheesecakes.R
 import com.example.mycheesecakes.databinding.FragmentFlashcardDetailsCheesecakeBinding
-import com.example.mycheesecakes.databinding.FragmentFlashcardDetailsDessertBinding
 import com.example.mycheesecakes.databinding.FragmentFlashcardDetailsDrinkBinding
+import com.example.mycheesecakes.databinding.FragmentFlashcardDetailsDessertBinding
 import com.example.mycheesecakes.domain.model.Cheesecake
 import com.example.mycheesecakes.domain.model.Nuts
 import com.example.mycheesecakes.domain.model.menuitems.*
+import com.example.mycheesecakes.domain.model.menuitems.util.toStringWithoutBrackets
 import java.lang.IllegalArgumentException
 
 
@@ -47,9 +47,9 @@ class FlashcardDetailsFragment : Fragment() {
 
         // Inflate the layout for this fragment
         binding = when (menuItemType) {
-            MENU_ITEM_CHEESECAKE -> FragmentFlashcardDetailsCheesecakeBinding.inflate(inflater)
-            MENU_ITEM_DESSERT -> FragmentFlashcardDetailsDessertBinding.inflate(inflater)
-            MENU_ITEM_DRINK -> FragmentFlashcardDetailsDrinkBinding.inflate(inflater)
+            MenuItem.TYPE_CHEESECAKE -> FragmentFlashcardDetailsCheesecakeBinding.inflate(inflater)
+            MenuItem.TYPE_DESSERT -> FragmentFlashcardDetailsDessertBinding.inflate(inflater)
+            MenuItem.TYPE_DRINK -> FragmentFlashcardDetailsDrinkBinding.inflate(inflater)
             else -> throw IllegalArgumentException("Invalid menuItemType")
         }
 
@@ -88,7 +88,7 @@ class FlashcardDetailsFragment : Fragment() {
             (menuItem is Dessert) -> {
                 (binding as FragmentFlashcardDetailsDessertBinding).apply {
                     detailsDessertBasePropertyTextview.text = menuItem.base
-                    detailsDessertDishesTextviewProperty.text = menuItem.dishes.toString()
+                    detailsDessertDishesTextviewProperty.text = menuItem.dishes.toStringWithoutBrackets()
                     detailsDessertFudgePropertyTextview.text = menuItem.fudge
                     detailsDessertIceCreamPropertyTextview.text = menuItem.iceCream
                     detailsDessertNameTextviewProperty.text = menuItem.name
@@ -97,6 +97,7 @@ class FlashcardDetailsFragment : Fragment() {
             }
             (menuItem is Drink) -> {
                 (binding as FragmentFlashcardDetailsDrinkBinding).apply {
+                    drinkNameTextview.text = menuItem.name
                     drinkEspressoShotsValueTextview.text = menuItem.shots.toString()
                     drinkMilkValueTextview.text = menuItem.milk.toString()
                     drinkFoamValueTextview.text = menuItem.foam.toString()

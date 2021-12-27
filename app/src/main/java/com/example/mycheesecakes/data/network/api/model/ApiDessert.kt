@@ -1,5 +1,6 @@
 package com.example.mycheesecakes.data.network.api.model
 
+import com.example.mycheesecakes.domain.model.menuitems.Dessert
 import com.google.gson.annotations.SerializedName
 
 data class ApiDessert(
@@ -26,6 +27,8 @@ data class ApiDessert(
         @SerializedName("name")
         val name: String?,
         @SerializedName("whip_cream")
-        val whippedCream: String?
+        val whippedCream: String?,
+        @SerializedName("id")
+        val id: String?
     )
 }

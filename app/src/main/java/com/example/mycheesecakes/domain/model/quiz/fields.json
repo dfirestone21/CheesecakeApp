@@ -1,0 +1,64 @@
+{
+  "records": [
+    {
+      "id": "rec049iHiN2BEfDNd",
+      "fields": {
+        "cheesecake_type": "Caramel",
+        "crust": "Pecan brownie",
+        "topping": "Caramel Turtle Pecans and Chocolate Ganache",
+        "nuts": "Pecans",
+        "presentation": "Whip",
+        "dollops": "One"
+      },
+      "createdTime": "2021-07-22T20:25:28.000Z"
+    },
+    {
+      "id": "rec0dfNGNOjNiSwhO",
+      "fields": {
+        "cheesecake_type": "Similar to original",
+        "crust": "Similar to original (without nuts)",
+        "topping": "None",
+        "nuts": "None",
+        "presentation": "Mint sprig on dollop",
+        "dollops": "One (Low-Licious)"
+      },
+      "createdTime": "2021-07-23T17:52:22.000Z"
+    },
+    {
+      "id": "rec15Mrv9J3yK4lkr",
+      "fields": {
+        "cheesecake_type": "White Chocolate Sweet Cream with a Peppermint Swirl, red and white mints, and dark chocolate flakes",
+        "crust": "Peppermint flourless chocolate cake",
+        "topping": "White chocolate Peppermint mousse with red and white mints and dark chocolate flakes",
+        "nuts": "None",
+        "presentation": "Crushed peppermint candy sprinkled over whip dollops, cheesecake and plate",
+        "dollops": "Two"
+      },
+      "createdTime": "2021-07-23T18:01:32.000Z"
+    },
+    {
+      "id": "rec1snwwK55efhrLE",
+      "fields": {
+        "cheesecake_type": "Mango key lime",
+        "crust": "Coconut macaroon",
+        "topping": "Mango mousse",
+        "nuts": "None",
+        "presentation": "Whip",
+        "dollops": "Two"
+      },
+      "createdTime": "2021-07-23T17:57:34.000Z"
+    },
+    {
+      "id": "rec2oJK1QXaD839gx",
+      "fields": {
+        "cheesecake_type": "Original cheesecake loaded with caramel apples",
+        "crust": "Graham cracker",
+        "topping": "Caramel",
+        "nuts": "None",
+        "presentation": "Whip",
+        "dollops": "Two"
+      },
+      "createdTime": "2021-07-22T20:25:28.000Z"
+    }
+  ]
+}

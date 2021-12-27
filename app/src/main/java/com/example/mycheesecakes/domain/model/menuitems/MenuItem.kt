@@ -4,16 +4,21 @@ import com.example.mycheesecakes.domain.model.Category
 import com.example.mycheesecakes.domain.model.Cheesecake
 import com.example.mycheesecakes.domain.model.Nuts
 
-const val MENU_ITEM_CHEESECAKE = 0
-const val MENU_ITEM_DESSERT = 1
-const val MENU_ITEM_DRINK = 2
+
 
 abstract class MenuItem(
     open val id: String? = null,
     open val name: String,
     open val imageURL: String,
+    //open val categories: List<Category> = listOf(), // Will be used for category feature.
     open var nutrition: Nutrition? = null
 ){
+
+    companion object {
+        const val TYPE_CHEESECAKE = 0
+        const val TYPE_DESSERT = 1
+        const val TYPE_DRINK = 2
+    }
 
 }
 

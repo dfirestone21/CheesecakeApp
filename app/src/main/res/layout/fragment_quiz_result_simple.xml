@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/quiz_result_constraint_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/list_background"
+    tools:context=".ui.quiz.QuizResultsFragment">
+
+    <TextView
+        android:id="@+id/quiz_result_simp_quiz_complete_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/quiz_complete"
+        android:textColor="@color/list_text"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.38" />
+
+    <TextView
+        android:id="@+id/quiz_result_simp_num_correct_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/list_text"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="@id/quiz_result_simp_quiz_complete_textview"
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintStart_toStartOf="@id/quiz_result_simp_quiz_complete_textview"
+        app:layout_constraintTop_toBottomOf="@+id/quiz_result_simp_quiz_complete_textview"
+        tools:text="27" />
+
+    <TextView
+        android:id="@+id/slash_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="48sp"
+        android:text="@string/slash"
+        android:textColor="@color/list_text"
+        app:layout_constraintRight_toLeftOf="@id/quiz_result_simp_total_textview"
+        app:layout_constraintBaseline_toBaselineOf="@id/quiz_result_simp_num_correct_textview"
+        app:layout_constraintLeft_toRightOf="@id/quiz_result_simp_num_correct_textview"/>
+
+    <TextView
+        android:id="@+id/quiz_result_simp_total_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/list_text"
+        android:textSize="48sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/quiz_result_simp_num_correct_textview"
+        app:layout_constraintLeft_toRightOf="@id/slash_textview"
+        tools:text="@string/_30" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
