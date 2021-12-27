@@ -55,9 +55,6 @@ class QuizViewModel(
 
     private var quizIsStarted = false
 
-
-    // TODO let user choose between returning to previous cached quiz or start a new one
-    // If they decide to start a new one, remove all previous quizzes.
     init {
         viewModelScope.launch {
             val cachedQuiz = quizRepository.getUnfinishedQuiz()
@@ -163,6 +160,3 @@ class QuizViewModel(
         quiz.quizComplete()
     }
 }
-
-
-//TODO convert LiveData to Flows
