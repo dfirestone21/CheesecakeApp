@@ -26,11 +26,26 @@ data class CachedQuizAggregate(
     val quizResult: CachedQuizResult? = null
 ) {
 
+    val isComplete: Boolean
+    get() = quizResult != null
+
     fun toDomain(): Quiz {
         return Quiz(
             id = quiz.id,
+            correct = quiz.correct,
+            incorrect = quiz.incorrect,
             questions = questions.map { it.toDomain() },
             questionIndex = quiz.questionIndex
         )
+    }
+
+    companion object {
+        fun fromDomain(quiz: Quiz): CachedQuizAggregate {
+            return CachedQuizAggregate(
+                quiz = CachedQuiz.fromDomain(quiz),
+                questions = quiz.questions.map { CachedQuestion.fromDomain(quiz.id,it) },
+                quizResult = if (quiz.quizResult != null) CachedQuizResult.fromDomain(quiz.quizResult!!) else null
+            )
+        }
     }
 }

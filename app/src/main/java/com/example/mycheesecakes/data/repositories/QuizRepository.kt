@@ -68,22 +68,31 @@ class QuizRepository(
         cache.storeAnswers(answers)
     }
 
+    /*
     override suspend fun cacheQuiz(quiz: Quiz) {
-        val quizAggregate = quiz.getCachedQuizAggregate()
-        cache.storeQuiz(quizAggregate)
+        cache.storeQuiz(CachedQuizAggregate.fromDomain(quiz))
+    }
+
+     */
+
+    override suspend fun cacheQuiz(quiz: Quiz) {
+        val cachedQuizAggregate = CachedQuizAggregate.fromDomain(quiz)
+        // This must be done in two transactions because the questions have
+        // quiz_id as a foreign key
+        cache.storeNewQuiz(cachedQuizAggregate.quiz)
+        cache.storeQuestions(cachedQuizAggregate.questions)
     }
 
     override suspend fun getUnfinishedQuiz(): Quiz? {
-        val cachedQuiz = cache.getUnfinishedQuiz()
-        cachedQuiz?.let {
-            return cachedQuiz.toDomain()
-        }
-        return null
+        return cache.getUnfinishedQuiz()?.toDomain()
+    }
+
+    override suspend fun removeAllQuizzes() {
+        cache.removeAllQuizzes()
     }
 
     override suspend fun cacheQuizState(quiz: Quiz) {
-        val quizAggregate = quiz.getCachedQuizAggregate()
-        cache.storeQuizState(quizAggregate)
+        cache.storeQuizState(CachedQuizAggregate.fromDomain(quiz))
     }
 
 }

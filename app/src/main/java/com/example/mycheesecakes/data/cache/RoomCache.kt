@@ -4,9 +4,7 @@ import com.example.mycheesecakes.data.cache.daos.AnswerDao
 import com.example.mycheesecakes.data.cache.daos.QuestionDao
 import com.example.mycheesecakes.data.cache.daos.QuizDao
 import com.example.mycheesecakes.data.cache.daos.QuizResultDao
-import com.example.mycheesecakes.data.cache.model.CachedAnswer
-import com.example.mycheesecakes.data.cache.model.CachedQuizAggregate
-import com.example.mycheesecakes.data.cache.model.CachedQuizResult
+import com.example.mycheesecakes.data.cache.model.*
 
 class RoomCache(
     private val answerDao: AnswerDao,
@@ -45,6 +43,19 @@ class RoomCache(
 
     override suspend fun getUnfinishedQuiz(): CachedQuizAggregate? {
         return quizDao.getLatestUnfinishedQuiz()
+    }
+
+    override suspend fun removeAllQuizzes() {
+        quizDao.removeAllQuizzes()
+    }
+
+
+    override suspend fun storeNewQuiz(quiz: CachedQuiz) {
+        quizDao.insertNewQuiz(quiz)
+    }
+
+    override suspend fun storeQuestions(questions: List<CachedQuestion>) {
+        quizDao.insertQuestions(questions)
     }
 
 }

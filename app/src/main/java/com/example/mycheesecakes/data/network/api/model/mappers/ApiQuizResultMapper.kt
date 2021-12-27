@@ -12,6 +12,6 @@ class ApiQuizResultMapper: ApiMapper<ApiQuizResult,QuizResult> {
                 incorrect = apiEntity?.fields?.incorrect ?: 0),
             date = apiEntity.fields?.date ?: 0,
             id = apiEntity.fields?.id ?: 0,
-        quizId = apiEntity.fields?.quizId ?: -1)
+        quizId = apiEntity.fields?.quizId.orEmpty())
     }
 }

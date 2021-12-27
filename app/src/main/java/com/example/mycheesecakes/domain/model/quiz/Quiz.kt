@@ -5,23 +5,24 @@ import com.example.mycheesecakes.data.cache.model.CachedQuiz
 import com.example.mycheesecakes.data.cache.model.CachedQuizAggregate
 import com.example.mycheesecakes.data.cache.model.CachedQuizResult
 import com.example.mycheesecakes.domain.model.quiz.*
+import com.example.mycheesecakes.utils.NanoIdUtils
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.util.*
 
-data class Quiz(
-    private val id: Int = 0,
-    private val questions: List<Question>,
-    private var questionIndex: Int = 0
+class Quiz(
+    val id: String = NanoIdUtils.randomNanoId(),
+    val questions: List<Question>,
+    var questionIndex: Int = 0,
+    var correct: Int = 0,
+    var incorrect: Int = 0
 ){
-    private var correct = 0
-    private var incorrect = 0
     private var currentQuestion: Question = questions[questionIndex]
     val size: Int
         get() = questions.size
-    private var quizResult: QuizResult? = null
+    var quizResult: QuizResult? = null
     lateinit var timer: QuizTimer
-    private var isComplete: Boolean = questionIndex == questions.lastIndex
+    var isComplete: Boolean = questionIndex == questions.lastIndex
 
     /**
      * Used for restarting the timer with previous time.
@@ -34,7 +35,6 @@ data class Quiz(
             return null
         }
         currentQuestion = questions[questionIndex]
-        questionIndex++
         timer = QuizTimer()
         timer.start()
         return currentQuestion
@@ -48,6 +48,7 @@ data class Quiz(
         } else {
             incorrect++
         }
+        questionIndex++
     }
 
     fun answerResponse(): String =
@@ -66,8 +67,12 @@ data class Quiz(
     fun quizComplete(): QuizResult {
         timer.cancel()
         isComplete = true
-        quizResult = getQuizResult()
-        return quizResult!!
+        quizResult = QuizResult(
+            score = Score(correct,incorrect),
+            date = Date().time,
+            quizId = id
+        )
+        return quizResult as QuizResult
     }
 
     fun pauseQuiz() {
@@ -81,24 +86,6 @@ data class Quiz(
         timer.start()
     }
 
-    fun getCachedQuizAggregate(): CachedQuizAggregate {
-        return CachedQuizAggregate(
-            quiz = CachedQuiz(
-                questionIndex = questionIndex,
-                correct = correct,
-                incorrect = incorrect,
-                isComplete = isComplete
-            ),
-            questions = questions.map { CachedQuestion.fromDomain(it) },
-            quizResult = if (quizResult != null) CachedQuizResult.fromDomain(quizResult!!) else null
-        )
-    }
-
-
-    private fun getQuizResult() = QuizResult(
-        score = Score(correct,incorrect),
-        date = Date().time,
-        quizId = id)
 }
 
 

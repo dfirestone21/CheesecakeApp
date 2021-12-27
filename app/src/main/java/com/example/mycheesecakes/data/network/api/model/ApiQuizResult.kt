@@ -20,6 +20,6 @@ data class ApiQuizResult(
         @SerializedName("incorrect")
         val incorrect: Int?,
         @SerializedName("quiz_id")
-        val quizId: Int?
+        val quizId: String?
     )
 }

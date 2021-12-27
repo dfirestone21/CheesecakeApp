@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.mycheesecakes.data.cache.daos.*
 import com.example.mycheesecakes.data.cache.model.*
 
-const val DATABASE_VERSION = 1
+const val DATABASE_VERSION = 4
 
 @Database(entities =
             [CachedQuiz::class, CachedQuizResult::class, CachedQuestion::class, CachedAnswer::class], version = DATABASE_VERSION)

@@ -35,4 +35,6 @@ interface QuizRepository {
     suspend fun cacheQuizState(quiz: Quiz)
 
     suspend fun getUnfinishedQuiz(): Quiz?
+
+    suspend fun removeAllQuizzes()
 }

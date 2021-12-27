@@ -2,15 +2,25 @@ package com.example.mycheesecakes.data.cache.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.example.mycheesecakes.domain.model.quiz.Question
 
-@Entity
+@Entity(
+    tableName = "questions",
+    foreignKeys = [
+        ForeignKey(
+            entity = CachedQuiz::class,
+            parentColumns = ["id"],
+            childColumns = ["quiz_id"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ])
 data class CachedQuestion(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     @ColumnInfo(name = "quiz_id")
-    val quizId: Int = 0,
+    val quizId: String,
     @ColumnInfo(name = "item_name")
     val itemName: String,
     @ColumnInfo(name = "item_image_url")
@@ -35,9 +45,10 @@ data class CachedQuestion(
     }
 
     companion object {
-        fun fromDomain(question: Question): CachedQuestion {
+        fun fromDomain(quizId: String, question: Question): CachedQuestion {
             return CachedQuestion(
                 id = question.id,
+                quizId = quizId,
                 itemName = question.itemName,
                 itemImageURL = question.itemImageURL,
                 question = question.question,

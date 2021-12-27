@@ -9,8 +9,8 @@ import com.example.mycheesecakes.domain.model.quiz.QuizResult
 
 @Entity(tableName = "quizzes")
 data class CachedQuiz(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
+    val id: String,
     @ColumnInfo(name = "question_index")
     var questionIndex: Int,
     var correct: Int,
@@ -18,4 +18,15 @@ data class CachedQuiz(
     @ColumnInfo(name = "is_complete")
     val isComplete: Boolean
 ) {
+    companion object {
+        fun fromDomain(quiz: Quiz): CachedQuiz {
+            return CachedQuiz(
+                id = quiz.id,
+                questionIndex = quiz.questionIndex,
+                correct = quiz.correct,
+                incorrect = quiz.incorrect,
+                isComplete = quiz.isComplete
+            )
+        }
+    }
 }

@@ -17,6 +17,7 @@ import com.example.mycheesecakes.domain.model.quiz.Score
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
@@ -24,8 +25,8 @@ const val TAG = "QuizViewModel"
 
 class QuizViewModel(
     menuItemType: Int,
-    quizRepository: QuizRepository,
-    menuItemRepository: MenuItemRepository
+    private val quizRepository: QuizRepository,
+    private val menuItemRepository: MenuItemRepository
 ) : ViewModel() {
 
     private lateinit var quiz: Quiz
@@ -54,6 +55,9 @@ class QuizViewModel(
 
     private var quizIsStarted = false
 
+
+    // TODO let user choose between returning to previous cached quiz or start a new one
+    // If they decide to start a new one, remove all previous quizzes.
     init {
         viewModelScope.launch {
             val cachedQuiz = quizRepository.getUnfinishedQuiz()
@@ -61,11 +65,11 @@ class QuizViewModel(
                 quiz = cachedQuiz
                 beginQuiz()
             } else {
-                val menuItems = getMenuItems(menuItemType)
-                if (menuItems != null) {
-                    setupNewQuiz(menuItems)
-                } else {
+                val menuItems = getMenuItems(menuItemType) ?: emptyList()
+                if (menuItems.isEmpty()) {
                     errorRetrievingItems()
+                } else {
+                    setupNewQuiz(menuItems)
                 }
             }
         }
@@ -87,7 +91,7 @@ class QuizViewModel(
 
     private fun setupNewQuiz(menuItems: List<MenuItem>, quizSize: Int = QuizProvider.QUIZ_SIZE_MEDIUM) {
         quiz = QuizProvider().createQuiz(menuItems,quizSize)
-        //viewModelScope.launch { quizRepository.cacheQuiz(quiz) }
+        viewModelScope.launch { quizRepository.cacheQuiz(quiz) }
         beginQuiz()
     }
 
@@ -106,7 +110,7 @@ class QuizViewModel(
     fun onQuestionAnswered(answer: String) {
       quiz.onQuestionAnswered(answer)
       _answerResult.value = quiz.answerResponse()
-      //viewModelScope.launch { quizRepository.cacheQuizState(quiz) }
+      viewModelScope.launch { quizRepository.cacheQuizState(quiz) }
       nextQuestion()
     }
 
@@ -135,7 +139,7 @@ class QuizViewModel(
     }
 
     fun fragmentOnStopCalled() {
-        //viewModelScope.launch { quizRepository.cacheQuizState(quiz) }
+        viewModelScope.launch { quizRepository.cacheQuizState(quiz) }
     }
 
     private fun errorRetrievingItems() {
@@ -159,3 +163,6 @@ class QuizViewModel(
         quiz.quizComplete()
     }
 }
+
+
+//TODO convert LiveData to Flows

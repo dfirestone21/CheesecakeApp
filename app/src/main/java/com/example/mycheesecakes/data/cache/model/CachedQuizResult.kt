@@ -17,7 +17,7 @@ data class CachedQuizResult(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     @ColumnInfo(name = "quiz_id")
-    val quizId: Int,
+    val quizId: String,
     val date: Long,
     val correct: Int,
     val incorrect: Int
