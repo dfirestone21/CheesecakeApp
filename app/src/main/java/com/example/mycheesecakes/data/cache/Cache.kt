@@ -1,8 +1,6 @@
 package com.example.mycheesecakes.data.cache
 
-import com.example.mycheesecakes.data.cache.model.CachedAnswer
-import com.example.mycheesecakes.data.cache.model.CachedQuizAggregate
-import com.example.mycheesecakes.data.cache.model.CachedQuizResult
+import com.example.mycheesecakes.data.cache.model.*
 
 interface Cache {
 // Works with all of the Cache models
@@ -25,4 +23,10 @@ interface Cache {
     suspend fun storeQuizState(quizAggregate: CachedQuizAggregate)
 
     suspend fun getUnfinishedQuiz(): CachedQuizAggregate?
+
+    suspend fun removeAllQuizzes()
+
+    suspend fun storeNewQuiz(quiz: CachedQuiz)
+
+    suspend fun storeQuestions(questions: List<CachedQuestion>)
 }
