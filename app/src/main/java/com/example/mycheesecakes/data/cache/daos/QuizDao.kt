@@ -11,36 +11,52 @@ interface QuizDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertQuiz(quizAggregate: CachedQuizAggregate) {
-        insertQuizAggregate(
-            quizAggregate.quiz,
-            quizAggregate.questions,
-            quizAggregate.quizResult
-        )
+        if (quizAggregate.isComplete) {
+            insertCompletedQuizAggregate(
+                quizAggregate.quiz,
+                quizAggregate.questions,
+                quizAggregate.quizResult!!
+            )
+        } else {
+            insertNewQuiz(quizAggregate.quiz)
+            insertQuestions(quizAggregate.questions)
+        }
     }
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertQuizAggregate(
+    suspend fun insertCompletedQuizAggregate(
         quiz: CachedQuiz,
         questions: List<CachedQuestion>,
-        quizResult: CachedQuizResult?
+        quizResult: CachedQuizResult
     )
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUncompletedQuizAggregate(
+        quiz: CachedQuiz,
+        questions: List<CachedQuestion>
+    )
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertNewQuiz(quiz: CachedQuiz)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertQuestions(questions: List<CachedQuestion>)
 
     @Update
     suspend fun updateQuiz(quizAggregate: CachedQuizAggregate) {
         updateQuizAggregate(
             quizAggregate.quiz,
-            quizAggregate.questions,
-            quizAggregate.quizResult
+            quizAggregate.questions
         )
     }
 
     @Update
     suspend fun updateQuizAggregate(
         quiz: CachedQuiz,
-        questions: List<CachedQuestion>,
-        quizResult: CachedQuizResult?
+        questions: List<CachedQuestion>
     )
 
+    @Transaction
     @Query("SELECT * FROM quizzes WHERE NOT is_complete ORDER BY id DESC LIMIT 1")
     suspend fun getLatestUnfinishedQuiz(): CachedQuizAggregate?
 
